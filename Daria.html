@@ -99,12 +99,42 @@
       <div class="progress" aria-hidden="true"><i id="bar"></i></div>
       <div class="pages" id="pages" tabindex="0" aria-live="polite">
         <!-- New Title Page -->
-        <section class="page active" data-page="1" aria-label="Title Page">
-          <div class="art"></div>
-          <div class="copy">
-            <h1>The Path Through The Quiet Woods</h1>
-          </div>
-        </section>
+<section class="page active" data-page="1" aria-label="Title Page">
+  <div class="art">
+    <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+      <!-- Ground line -->
+      <path d="M0 100 Q 50 95, 100 100 Q 150 105, 200 100" 
+            stroke="black" fill="transparent" stroke-width="2"/>
+
+      <!-- Winding path -->
+      <path d="M100 100 Q 90 80, 110 60 Q 95 40, 105 20" 
+            stroke="black" fill="transparent" stroke-width="2" stroke-linecap="round"/>
+
+      <!-- Traveler -->
+      <circle cx="100" cy="78" r="5" stroke="black" fill="transparent" stroke-width="2"/>
+      <path d="M100 83 L100 92 M100 85 L94 88 M100 85 L106 88" 
+            stroke="black" fill="transparent" stroke-width="2"/>
+
+      <!-- Backpack -->
+      <path d="M94 84 Q 92 87, 94 89" stroke="black" fill="transparent" stroke-width="2"/>
+
+      <!-- Trees left -->
+      <path d="M40 100 L40 60 M36 70 L44 70 M37 80 L43 80" 
+            stroke="black" fill="transparent" stroke-width="2"/>
+      <path d="M30 100 L30 75 M26 85 L34 85" 
+            stroke="black" fill="transparent" stroke-width="2"/>
+
+      <!-- Trees right -->
+      <path d="M160 100 L160 65 M156 75 L164 75 M157 85 L163 85" 
+            stroke="black" fill="transparent" stroke-width="2"/>
+      <path d="M170 100 L170 78 M166 88 L174 88" 
+            stroke="black" fill="transparent" stroke-width="2"/>
+    </svg>
+  </div>
+  <div class="copy">
+    <h1>For Daria — The Path Through The Quiet Woods</h1>
+  </div>
+</section>
 
         <!-- Page 1: The Fog (now page 2) -->
         <section class="page" data-page="2" aria-label="Page 2: The Fog">
@@ -227,13 +257,34 @@
           </div>
         </section>
 
-        <!-- New Dedication Page -->
-        <section class="page" data-page="9" aria-label="Dedication Page">
-          <div class="art"></div>
-          <div class="copy">
-            <h1>For Daria, whose light is far greater than she sees</h1>
-          </div>
-        </section>
+        <!-- New Dedication Page -->  
+<section class="page" data-page="9" aria-label="Dedication Page">  
+  <div class="art">
+    <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+      <!-- Ground line -->
+      <path d="M0 100 Q 50 95, 100 100 Q 150 105, 200 100" 
+            stroke="black" fill="transparent" stroke-width="2"/>
+      
+      <!-- Sun -->
+      <circle cx="160" cy="35" r="10" stroke="black" fill="transparent" stroke-width="2"/>
+      <path d="M160 15 L160 5 M160 55 L160 65 M140 35 L130 35 M180 35 L190 35
+               M145 20 L137 12 M175 50 L183 58 M145 50 L137 58 M175 20 L183 12"
+            stroke="black" fill="transparent" stroke-width="2"/>
+      <!-- Traveler facing horizon -->
+      <circle cx="60" cy="78" r="5" stroke="black" fill="transparent" stroke-width="2"/>
+      <path d="M60 83 L60 92 M60 85 L54 88 M60 85 L66 88" 
+            stroke="black" fill="transparent" stroke-width="2"/>
+      <!-- Backpack -->
+      <path d="M54 84 Q 52 87, 54 89" stroke="black" fill="transparent" stroke-width="2"/>
+      <!-- Path leading to sun -->
+      <path d="M60 92 Q 80 85, 110 75 Q 140 60, 160 45" 
+            stroke="black" fill="transparent" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </div>  
+  <div class="copy">  
+    <h1>For Daria, whose light is far greater than she sees</h1>  
+  </div>  
+</section>
       </div>
 
       <!-- Invisible navigation layer: click left/right halves to move -->
