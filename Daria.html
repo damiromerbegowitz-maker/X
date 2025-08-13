@@ -1,0 +1,304 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Path Through the Quiet Woods — For Daria</title>
+  <meta name="description" content="A 9-page, single-file interactive story with gentle, stoic-tinged encouragements for Daria." />
+  <style>
+    :root {
+      --bg: #fcfaf6;
+      --ink: #000000;
+      --muted: #6b7280;
+      --accent: #7c9a92; /* sage */
+      --accent-2: #e7ddd0; /* parchment edge */
+      --page-w: min(900px, 92vw);
+      --page-h: min(620px, 78vh);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #101213; --ink: #000000; --muted: #9ca3af; --accent: #9db7b0; --accent-2: #1b1f22; }
+      .paper { box-shadow: 0 10px 40px rgba(0,0,0,.5); }
+    }
+    html, body { height: 100%; }
+    body {
+      margin: 0; background: radial-gradient(1200px 600px at 20% 0%, var(--accent-2) 0, transparent 45%),
+                                   radial-gradient(1000px 600px at 120% 120%, var(--accent-2) 0, transparent 40%), var(--bg);
+      color: var(--ink); font: 500 18px/1.6 ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+      display: grid; place-items: center;
+    }
+    .app { width: var(--page-w); }
+
+    .paper {
+      position: relative; width: var(--page-w); height: var(--page-h);
+      background: #fff9f2; border-radius: 24px; padding: clamp(18px, 3.5vw, 36px);
+      box-shadow: 0 0px 0px rgba(0,0,0,.12);
+      border: 0px solid rgba(0,0,0,.06);
+      overflow: hidden;
+    }
+
+    /* Progress bar */
+    .progress { position: absolute; top: 0; left: 0; height: 4px; width: 100%; background: rgba(0,0,0,.06); }
+    .progress > i { display: block; height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), #c0d7cf); transition: width .5s ease; }
+
+    /* Page container */
+    .pages { position: relative; width: 100%; height: 100%; }
+    .page {
+      position: absolute; inset: 0; display: grid; grid-template-rows: 1fr auto; gap: 16px; padding: clamp(8px, 2vw, 16px);
+      opacity: 0; transform: translateX(30px) scale(.98); pointer-events: none; transition: opacity .6s ease, transform .6s ease;
+    }
+    .page.active { opacity: 1; transform: translateX(0) scale(1); pointer-events: auto; }
+
+    .art { display: grid; place-items: center; }
+    .copy { align-self: end; }
+
+    h1, h2 { margin: 0 0 10px; font-weight: 700; letter-spacing: .2px; }
+    h1 { font-size: clamp(22px, 3vw, 30px); }
+    h2 { font-size: clamp(22px, 3vw, 30px); color: var(--muted); font-weight: 600; }
+    p { margin: 6px 0 0; }
+    .small { font-size: 14px; color: var(--muted); }
+
+    .chrome { position: absolute; inset: 0; pointer-events: none; display: none; }
+    .chrome .hint { position: absolute; right: 16px; bottom: 14px; font-size: 14px; color: var(--muted); opacity: .9; }
+    .chrome .counter { position: absolute; left: 16px; bottom: 14px; font-size: 14px; color: var(--muted); }
+
+    /* Buttons (optional, also fully navigable by click/keys) */
+    .nav { position: absolute; inset: 0; display: flex; justify-content: space-between; align-items: stretch; }
+    .hotspot { width: 50%; height: 100%; cursor: pointer; background: linear-gradient(90deg, transparent, rgba(0,0,0,.02), transparent); opacity: 0; transition: opacity .2s; }
+    .hotspot:hover { opacity: 1; }
+
+    /* Illustration style */
+    svg { max-width: 100%; height: auto; }
+    .stroke { stroke: #232b2b; stroke-opacity: .85; }
+    .fill { fill: none; }
+    .grain::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .08;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="table" tableValues="0 0.6"/></feComponentTransfer></filter><rect width="100%" height="100%" filter="url(%23n)"/></svg>');
+      mix-blend-mode: multiply; }
+
+    /* Italicize <p> elements on pages 2 through 8 */
+    .page[data-page="2"] .copy p,
+    .page[data-page="3"] .copy p,
+    .page[data-page="4"] .copy p,
+    .page[data-page="5"] .copy p,
+    .page[data-page="6"] .copy p,
+    .page[data-page="7"] .copy p,
+    .page[data-page="8"] .copy p {
+      font-style: italic;
+    }
+
+    /* Print styles */
+    @media print {
+      body { background: white; }
+      .paper { height: auto; box-shadow: none; }
+      .page { position: static; opacity: 1 !important; transform: none !important; page-break-after: always; }
+      .nav, .chrome, .progress { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="paper grain" role="group" aria-label="Storybook: The Path Through the Quiet Woods">
+      <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+      <div class="pages" id="pages" tabindex="0" aria-live="polite">
+        <!-- New Title Page -->
+        <section class="page active" data-page="1" aria-label="Title Page">
+          <div class="art"></div>
+          <div class="copy">
+            <h1>The Path Through The Quiet Woods</h1>
+          </div>
+        </section>
+
+        <!-- Page 1: The Fog (now page 2) -->
+        <section class="page" data-page="2" aria-label="Page 2: The Fog">
+          <div class="art">
+            <!-- Misty forest line art -->
+            <svg viewBox="0 0 800 420" aria-hidden="true">
+              <defs>
+                <linearGradient id="mist" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#c7d2d1" stop-opacity="0.6"/>
+                  <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <rect x="0" y="0" width="800" height="420" fill="url(#mist)"/>
+              <path class="stroke fill" d="M40 360 Q120 320 210 350 T380 340 T570 360 T760 350" stroke-width="2"/>
+              <path class="stroke fill" d="M120 330 q20-60 60-120 q60 80 80 120" stroke-width="2"/>
+              <path class="stroke fill" d="M520 330 q16-48 50-96 q48 64 64 96" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="copy">
+            <h2>The Fog</h2>
+            <p><em>“I don’t know if I’m enough to walk this path.”</em></p>
+            <p>The guide smiled: “You do not need to be ‘enough’ before you begin. You only need to begin.”</p>
+          </div>
+        </section>
+
+        <!-- Page 2: The Weight (now page 3) -->
+        <section class="page" data-page="3" aria-label="Page 3: The Weight">
+          <div class="art">
+            <svg viewBox="0 0 800 420" aria-hidden="true">
+              <circle class="stroke fill" cx="200" cy="240" r="80" stroke-width="2"/>
+              <path class="stroke fill" d="M200 160 v-40 m-12 0 h24" stroke-width="2"/>
+              <path class="stroke fill" d="M310 270 h260 q40 0 40 40 v10 h-340 z" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="copy">
+            <h2>The Weight</h2>
+            <p>“Why does my heart feel so heavy?”</p>
+            <p>The guide said: “You are carrying every doubt, every regret, every ‘what if’. Set them down for a moment. The road is easier when you only carry what is yours to carry <strong>today</strong>.”</p>
+          </div>
+        </section>
+
+        <!-- Page 3: The River (now page 4) -->
+        <section class="page" data-page="4" aria-label="Page 4: The River">
+          <div class="art">
+            <svg viewBox="0 0 800 420" aria-hidden="true">
+              <path class="stroke fill" d="M0 320 q120-40 240 0 t240 0 t240 0" stroke-width="2"/>
+              <ellipse class="stroke fill" cx="200" cy="300" rx="40" ry="12" stroke-width="2"/>
+              <ellipse class="stroke fill" cx="370" cy="305" rx="40" ry="12" stroke-width="2"/>
+              <ellipse class="stroke fill" cx="540" cy="300" rx="40" ry="12" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="copy">
+            <h2>The River</h2>
+            <p>“What if I fall?”</p>
+            <p>“Whether you step forward or stay still,” the guide replied, “time will pass. So step, and let the river teach you balance.”</p>
+          </div>
+        </section>
+
+        <!-- Page 4: The Mirror Leaf (now page 5) -->
+        <section class="page" data-page="5" aria-label="Page 5: The Mirror Leaf">
+          <div class="art">
+            <svg viewBox="0 0 800 420" aria-hidden="true">
+              <path class="stroke fill" d="M200 300 q120-140 260-110 q-120 140 -260 110 z" stroke-width="2"/>
+              <circle cx="380" cy="210" r="10" fill="#c9e0dc" />
+            </svg>
+          </div>
+          <div class="copy">
+            <h2>The Mirror Leaf</h2>
+            <p>“I see nothing good in me,” said the traveler.</p>
+            <p>“The leaf does not need to see the sun to hold its light,” said the guide. “You too reflect more goodness than you know.”</p>
+          </div>
+        </section>
+
+        <!-- Page 5: The Mountain (now page 6) -->
+        <section class="page" data-page="6" aria-label="Page 6: The Mountain">
+          <div class="art">
+            <svg viewBox="0 0 800 420" aria-hidden="true">
+              <path class="stroke fill" d="M140 340 L300 180 L460 340 Z" stroke-width="2"/>
+              <path class="stroke fill" d="M360 340 L520 210 L680 340 Z" stroke-width="2"/>
+              <path class="stroke fill" d="M300 180 l30 40 l-60 0 z" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="copy">
+            <h2>The Mountain</h2>
+            <p>“It’s too far. I will never reach it.”</p>
+            <p>“The mountain does not care if you arrive today or in ten years,” the guide said. “Each step is a victory over standing still.”</p>
+          </div>
+        </section>
+
+        <!-- Page 6: The Bench (now page 7) -->
+        <section class="page" data-page="7" aria-label="Page 7: The Bench">
+          <div class="art">
+            <svg viewBox="0 0 800 420" aria-hidden="true">
+              <rect class="stroke fill" x="200" y="280" width="360" height="16" rx="3" stroke-width="2"/>
+              <rect class="stroke fill" x="220" y="300" width="320" height="10" rx="2" stroke-width="2"/>
+              <path class="stroke fill" d="M230 280 v40 M530 280 v40" stroke-width="2"/>
+              <path class="stroke fill" d="M120 230 q60-40 120 0" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="copy">
+            <h2>The Bench</h2>
+            <p>“I feel guilty resting.”</p>
+            <p>“Rest is not the enemy of progress,” the guide answered. “Even the strongest trees grow in stillness.”</p>
+          </div>
+        </section>
+
+        <!-- Page 7: The Sunrise (now page 8) -->
+        <section class="page" data-page="8" aria-label="Page 8: The Sunrise">
+          <div class="art">
+            <svg viewBox="0 0 800 420" aria-hidden="true">
+              <circle cx="400" cy="340" r="80" fill="#ffe6b7"/>
+              <path class="stroke fill" d="M40 360 Q120 330 210 350 T380 340 T570 360 T760 350" stroke-width="2"/>
+              <path class="stroke fill" d="M400 260 v-26 M360 270 l-18 -18 M440 270 l18 -18 M330 300 h-26 M470 300 h26" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="copy">
+            <h2>The Sunrise</h2>
+            <p>The traveler stood taller, breathing deeply.</p>
+            <p>“You are not behind. You are not less. You are exactly where you need to be for the next step.”</p>
+          </div>
+        </section>
+
+        <!-- New Dedication Page -->
+        <section class="page" data-page="9" aria-label="Dedication Page">
+          <div class="art"></div>
+          <div class="copy">
+            <h1>For Daria, whose light is far greater than she sees</h1>
+          </div>
+        </section>
+      </div>
+
+      <!-- Invisible navigation layer: click left/right halves to move -->
+      <div class="nav" aria-hidden="true">
+        <div class="hotspot" id="prevSpot" title="Previous (←)"></div>
+        <div class="hotspot" id="nextSpot" title="Next (→)"></div>
+      </div>
+
+      <div class="chrome" aria-hidden="true">
+        <div class="counter"><span id="count">1</span> / <span id="total">9</span></div>
+        <div class="hint">Click • Tap • ←/→ • Space • R to restart • P to print</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function(){
+      const pages = Array.from(document.querySelectorAll('.page'));
+      const total = pages.length;
+      const totalEl = document.getElementById('total');
+      const countEl = document.getElementById('count');
+      const bar = document.getElementById('bar');
+      const prevSpot = document.getElementById('prevSpot');
+      const nextSpot = document.getElementById('nextSpot');
+      const container = document.getElementById('pages');
+
+      let i = 0; // active index
+      totalEl.textContent = total;
+
+      function setActive(idx) {
+        i = Math.max(0, Math.min(total - 1, idx));
+        pages.forEach((p, j) => p.classList.toggle('active', j === i));
+        countEl.textContent = (i + 1);
+        bar.style.width = ((i + 1) / total) * 100 + '%';
+      }
+
+      function next(){ setActive(i + 1); }
+      function prev(){ setActive(i - 1); }
+
+      // Click to navigate
+      nextSpot.addEventListener('click', next);
+      prevSpot.addEventListener('click', prev);
+      container.addEventListener('click', next);
+
+      // Keyboard navigation
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+        else if (e.key.toLowerCase() === 'r') { setActive(0); }
+        else if (e.key.toLowerCase() === 'p') { window.print(); }
+      });
+
+      // Touch: tap to advance, swipe to navigate
+      let startX = null;
+      container.addEventListener('touchstart', (e) => { startX = e.changedTouches[0].clientX; });
+      container.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); } else { next(); }
+      });
+
+      // Focus for a11y
+      container.focus();
+
+      // Expose simple API for quick edits in console
+      window.Story = { next, prev, go: setActive };
+    })();
+  </script>
+</body>
+</html>
