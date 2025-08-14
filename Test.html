@@ -182,12 +182,17 @@
     <div id="page8" class="page">
         <svg width="300" height="200" viewBox="0 0 300 200">
             <!-- Rainbow above tree and butterfly -->
-            <path d="M100 50 A100 100 0 0 1 200 50" fill="none" stroke="rgba(255, 0, 0, 0.3)" stroke-width="8" />
-            <path d="M100 50 A95 95 0 0 1 200 50" fill="none" stroke="rgba(255, 165, 0, 0.3)" stroke-width="8" />
-            <path d="M100 50 A90 90 0 0 1 200 50" fill="none" stroke="rgba(255, 255, 0, 0.3)" stroke-width="8" />
-            <path d="M100 50 A85 85 0 0 1 200 50" fill="none" stroke="rgba(0, 128, 0, 0.3)" stroke-width="8" />
-            <path d="M100 50 A80 80 0 0 1 200 50" fill="none" stroke="rgba(0, 0, 255, 0.3)" stroke-width="8" />
-            <path d="M100 50 A75 75 0 0 1 200 50" fill="none" stroke="rgba(128, 0, 128, 0.3)" stroke-width="8" />
+            <path d="M100 40 Q150 20 200 40" fill="none" stroke="url(#rainbowGradient)" stroke-width="12" />
+            <defs>
+                <linearGradient id="rainbowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#FF0000;stop-opacity:0.5" />
+                    <stop offset="20%" style="stop-color:#FFA500;stop-opacity:0.5" />
+                    <stop offset="40%" style="stop-color:#FFFF00;stop-opacity:0.5" />
+                    <stop offset="60%" style="stop-color:#008000;stop-opacity:0.5" />
+                    <stop offset="80%" style="stop-color:#0000FF;stop-opacity:0.5" />
+                    <stop offset="100%" style="stop-color:#800080;stop-opacity:0.5" />
+                </linearGradient>
+            </defs>
             <!-- Artwork from original page 8: Butterfly on branch -->
             <rect x="130" y="50" width="40" height="150" fill="#8B4513" />
             <circle cx="150" cy="50" r="50" fill="#228B22" />
