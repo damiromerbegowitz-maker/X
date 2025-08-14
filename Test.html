@@ -3,144 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Light in the Blue</title>
+    <title>For Daria</title>
     <style>
-        body {
+        body, html {
             margin: 0;
             padding: 0;
-            height: 100vh;
+            height: 100%;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #e0f7fa, #ffffff);
+            font-family: "Book Antiqua", Palatino, serif;
+            color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(to bottom, #1e3a8a, #ffffff);
-            font-family: 'Lora', serif;
-            color: #1e3a8a;
-            overflow: hidden;
+            text-align: center;
         }
         .page {
             display: none;
-            width: 80%;
-            max-width: 800px;
-            text-align: center;
-            padding: 20px;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-        .page.active {
-            display: block;
-            opacity: 1;
-        }
-        .artwork {
-            width: 300px;
-            height: 300px;
-            margin: 20px auto;
-            background: #f0f0f0; /* Placeholder for artwork */
-            border-radius: 10px;
-        }
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-        p {
-            font-size: 1.2em;
-            line-height: 1.6;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .navigation {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .page.active {
             display: flex;
         }
-        .nav-left, .nav-right {
-            width: 50%;
-            height: 100%;
-            cursor: pointer;
+        svg {
+            max-width: 50%;
+            max-height: 40%;
+            margin-bottom: 20px;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .text {
+            max-width: 60%;
+            font-size: 1.2em;
+            line-height: 1.5;
         }
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+        .title {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .dedication {
+            font-style: italic;
         }
     </style>
 </head>
 <body>
-    <div class="navigation">
-        <div class="nav-left" onclick="prevPage()"></div>
-        <div class="nav-right" onclick="nextPage()"></div>
+    <div id="page1" class="page active">
+        <svg width="300" height="200" viewBox="0 0 300 200">
+            <!-- Oak tree -->
+            <rect x="130" y="50" width="40" height="150" fill="#8B4513" />
+            <circle cx="150" cy="50" r="50" fill="#228B22" />
+            <circle cx="110" cy="70" r="40" fill="#228B22" />
+            <circle cx="190" cy="70" r="40" fill="#228B22" />
+            <!-- Butterfly -->
+            <circle cx="220" cy="100" r="20" fill="#ADD8E6" />
+            <path d="M220 100 Q240 80 260 100 Q240 120 220 100" fill="#87CEEB" />
+            <path d="M220 100 Q240 120 260 100 Q240 80 220 100" fill="#87CEEB" />
+            <line x1="220" y1="100" x2="240" y2="80" stroke="#FFD700" stroke-width="2" />
+            <line x1="220" y1="100" x2="240" y2="120" stroke="#FFD700" stroke-width="2" />
+        </svg>
+        <div class="text title">The Butterfly and the Oak</div>
     </div>
-    <div class="page" id="page1">
-        <h1>The Light in the Blue</h1>
-        <div class="artwork"></div> <!-- Cover artwork -->
+    <div id="page2" class="page">
+        <svg width="300" height="200" viewBox="0 0 300 200">
+            <!-- Oak -->
+            <rect x="50" y="100" width="30" height="100" fill="#8B4513" />
+            <circle cx="65" cy="100" r="40" fill="#228B22" />
+            <circle cx="30" cy="120" r="30" fill="#228B22" />
+            <circle cx="100" cy="120" r="30" fill="#228B22" />
+            <!-- Butterfly low, wings down -->
+            <circle cx="200" cy="150" r="15" fill="#ADD8E6" />
+            <path d="M200 150 Q215 140 230 150 Q215 160 200 150" fill="#87CEEB" stroke="#87CEEB" />
+            <path d="M200 150 Q215 160 230 150 Q215 140 200 150" fill="#87CEEB" stroke="#87CEEB" />
+            <line x1="200" y1="150" x2="215" y2="140" stroke="#FFD700" stroke-width="1" />
+        </svg>
+        <div class="text">In the quiet forest, the Butterfly fluttered low, her wings heavy with the weight of unseen storms. "I am but a fleeting shadow," she whispered to the wind, "unworthy of the sky's vast embrace."</div>
     </div>
-    <div class="page" id="page2">
-        <p>Luna walked through a world draped in blue, her steps heavy with the weight of unseen eyes. She felt small, as if her light flickered too faintly to be seen. Shade walked beside her, silent but steady, his presence like a warm stone in a cold stream. “The world does not measure your worth,” he said softly. “It is enough to be.” Luna paused, her breath catching. Could it be so simple? To exist, to breathe, was that not a spark in itself?</p>
-        <div class="artwork"></div> <!-- Artwork: Luna and Shade on a blue path -->
+    <div id="page3" class="page">
+        <svg width="300" height="200" viewBox="0 0 300 200">
+            <!-- Oak reaching branch -->
+            <rect x="50" y="100" width="30" height="100" fill="#8B4513" />
+            <circle cx="65" cy="100" r="40" fill="#228B22" />
+            <circle cx="30" cy="120" r="30" fill="#228B22" />
+            <circle cx="100" cy="120" r="30" fill="#228B22" />
+            <line x1="80" y1="120" x2="150" y2="140" stroke="#8B4513" stroke-width="10" />
+            <!-- Butterfly near branch -->
+            <circle cx="180" cy="140" r="15" fill="#ADD8E6" />
+            <path d="M180 140 Q195 130 210 140 Q195 150 180 140" fill="#87CEEB" />
+            <path d="M180 140 Q195 150 210 140 Q195 130 180 140" fill="#87CEEB" />
+            <line x1="180" y1="140" x2="195" y2="130" stroke="#FFD700" stroke-width="1" />
+        </svg>
+        <div class="text">The Oak, rooted deep in the earth, extended a branch. "Storms pass," he murmured, "but they do not define the strength of your wings. What you endure shapes the grace with which you rise."</div>
     </div>
-    <div class="page" id="page3">
-        <p>The path grew steep, and Luna’s heart whispered doubts: “You are not enough.” She stumbled, her pale hands trembling. Shade knelt beside her, pointing to a single star above. “It shines alone, yet it is enough for the sky,” he said. “Your strength is not in being flawless, but in rising each time you fall.” Luna looked up, her blue eyes catching the star’s light. For the first time, she felt the ground beneath her as a friend, not a foe.</p>
-        <div class="artwork"></div> <!-- Artwork: Luna looking at a star -->
+    <div id="page4" class="page">
+        <svg width="300" height="200" viewBox="0 0 300 200">
+            <!-- Butterfly circling low -->
+            <circle cx="150" cy="150" r="15" fill="#ADD8E6" />
+            <path d="M150 150 Q165 140 180 150 Q165 160 150 150" fill="#87CEEB" />
+            <path d="M150 150 Q165 160 180 150 Q165 140 150 150" fill="#87CEEB" />
+            <line x1="150" y1="150" x2="165" y2="140" stroke="#FFD700" stroke-width="1" />
+            <!-- Oak steady -->
+            <rect x="50" y="100" width="30" height="100" fill="#8B4513" />
+            <circle cx="65" cy="100" r="40" fill="#228B22" />
+            <circle cx="30" cy="120" r="30" fill="#228B22" />
+            <circle cx="100" cy="120" r="30" fill="#228B22" />
+        </svg>
+        <div class="text">"Why must I fight the winds that others glide upon?" the Butterfly asked, her colors fading in the doubt. The Oak replied, "The winds are impartial teachers. Embrace what they reveal about your unyielding core."</div>
     </div>
-    <div class="page" id="page4">
-        <p>A river blocked their way, its currents swift and cold. Luna feared it would sweep her away. “I cannot cross,” she said, her voice small. Shade stood at the edge, unmoved. “The river does not ask you to be stronger than it,” he said. “It asks only that you step forward.” Luna took a breath, her blonde hair catching the blue light. She stepped in, and the water parted around her courage, not her strength.</p>
-        <div class="artwork"></div> <!-- Artwork: Luna crossing a river -->
+    <div id="page5" class="page">
+        <svg width="300" height="200" viewBox="0 0 300 200">
+            <!-- Oak with leaves sheltering -->
+            <rect x="50" y="100" width="30" height="100" fill="#8B4513" />
+            <circle cx="65" cy="100" r="40" fill="#228B22" />
+            <circle cx="30" cy="120" r="30" fill="#228B22" />
+            <circle cx="100" cy="120" r="30" fill="#228B22" />
+            <circle cx="150" cy="130" r="20" fill="#228B22" />
+            <!-- Butterfly under leaf -->
+            <circle cx="140" cy="140" r="15" fill="#ADD8E6" />
+            <path d="M140 140 Q155 130 170 140 Q155 150 140 140" fill="#87CEEB" />
+            <path d="M140 140 Q155 150 170 140 Q155 130 140 140" fill="#87CEEB" />
+            <line x1="140" y1="140" x2="155" y2="130" stroke="#FFD700" stroke-width="1" />
+        </svg>
+        <div class="text">In the rain, she sought shelter beneath his leaves. "You stand tall without question," she said. "I have faced centuries of tempests," the Oak answered, "yet I grow not in spite of them, but because of the quiet resolve they demand."</div>
     </div>
-    <div class="page" id="page5">
-        <p>In a quiet glade, Luna sat, her heart heavy with others’ expectations. “Why do I seek their approval?” she asked. Shade traced a circle in the dirt. “The circle is whole without adding more,” he said. “Your worth is not borrowed from others’ eyes.” Luna touched the circle, feeling its completeness. She smiled, a small spark of blue igniting within her. Shade nodded, his presence a quiet anchor.</p>
-        <div class="artwork"></div> <!-- Artwork: Luna and Shade in a glade -->
+    <div id="page6" class="page">
+        <svg width="300" height="200" viewBox="0 0 300 200">
+            <!-- Butterfly higher, wings open -->
+            <circle cx="200" cy="100" r="20" fill="#ADD8E6" />
+            <path d="M200 100 Q220 80 240 100 Q220 120 200 100" fill="#87CEEB" />
+            <path d="M200 100 Q220 120 240 100 Q220 80 200 100" fill="#87CEEB" />
+            <line x1="200" y1="100" x2="220" y2="80" stroke="#FFD700" stroke-width="2" />
+            <line x1="200" y1="100" x2="220" y2="120" stroke="#FFD700" stroke-width="2" />
+            <!-- Oak below -->
+            <rect x="50" y="100" width="30" height="100" fill="#8B4513" />
+            <circle cx="65" cy="100" r="40" fill="#228B22" />
+        </svg>
+        <div class="text">"Am I deserving of the sun's warmth?" the Butterfly pondered aloud. The Oak's branches swayed gently. "Worth is not earned in perfection, but recognized in the simple act of being. The sun shines on all, without judgment."</div>
     </div>
-    <div class="page" id="page6">
-        <p>A storm came, its winds howling doubts. Luna shrank, feeling her light dim. Shade stood firm, his voice cutting through the gale. “The storm does not define you,” he said. “It passes, but your light remains.” Luna closed her eyes, finding a stillness within. The winds roared, but she stood, her pale skin glowing faintly blue. She was not the storm, nor its master—she was Luna, and that was enough.</p>
-        <div class="artwork"></div> <!-- Artwork: Luna in a storm -->
+    <div id="page7" class="page">
+        <svg width="300" height="200" viewBox="0 0 300 200">
+            <!-- Butterfly flying free, oak in background -->
+            <circle cx="250" cy="50" r="20" fill="#ADD8E6" />
+            <path d="M250 50 Q270 30 290 50 Q270 70 250 50" fill="#87CEEB" />
+            <path d="M250 50 Q270 70 290 50 Q270 30 250 50" fill="#87CEEB" />
+            <line x1="250" y1="50" x2="270" y2="30" stroke="#FFD700" stroke-width="2" />
+            <line x1="250" y1="50" x2="270" y2="70" stroke="#FFD700" stroke-width="2" />
+            <!-- Oak small -->
+            <rect x="50" y="150" width="20" height="50" fill="#8B4513" />
+            <circle cx="60" cy="150" r="25" fill="#228B22" />
+        </svg>
+        <div class="text">As the Butterfly ascended, she turned back. "Your roots hold you firm." The Oak rustled, "And your wings carry you far. In our differences, we find the balance that endures."</div>
     </div>
-    <div class="page" id="page7">
-        <p>At a cliff’s edge, Luna hesitated, fearing the fall. “What if I fail?” she whispered. Shade looked to the horizon. “Failure is not the end,” he said. “It is the path to knowing yourself.” Luna took a step, her heart pounding but steady. The cliff did not crumble, and the sky opened wide. Her blue eyes shone, reflecting a strength she hadn’t seen before. Shade smiled, his warmth unspoken.</p>
-        <div class="artwork"></div> <!-- Artwork: Luna at a cliff -->
+    <div id="page8" class="page">
+        <svg width="300" height="200" viewBox="0 0 300 200">
+            <!-- Both together, butterfly on branch -->
+            <rect x="130" y="50" width="40" height="150" fill="#8B4513" />
+            <circle cx="150" cy="50" r="50" fill="#228B22" />
+            <circle cx="110" cy="70" r="40" fill="#228B22" />
+            <circle cx="190" cy="70" r="40" fill="#228B22" />
+            <circle cx="200" cy="80" r="20" fill="#ADD8E6" />
+            <path d="M200 80 Q220 60 240 80 Q220 100 200 80" fill="#87CEEB" />
+            <path d="M200 80 Q220 100 240 80 Q220 60 200 80" fill="#87CEEB" />
+            <line x1="200" y1="80" x2="220" y2="60" stroke="#FFD700" stroke-width="2" />
+            <line x1="200" y1="80" x2="220" y2="100" stroke="#FFD700" stroke-width="2" />
+        </svg>
+        <div class="text">In time, the Butterfly understood: The world asks not for flawlessness, but for the courage to flutter onward. And in that truth, she found her light.</div>
     </div>
-    <div class="page" id="page8">
-        <p>The journey ended at a quiet lake, its surface a mirror of blue. Luna looked at her reflection, seeing not just doubt but a light that endured. “You’ve always carried it,” Shade said, his voice soft as the water’s edge. “Your light is yours, not the world’s to give or take.” Luna touched the water, ripples spreading. She was enough, not because of others, but because she was Luna.</p>
-        <div class="artwork"></div> <!-- Artwork: Luna at a lake -->
-    </div>
-    <div class="page" id="page9">
-        <h1>For Daria, whose light shines even in the deepest blue.</h1>
-        <div class="artwork"></div> <!-- Dedication artwork -->
+    <div id="page9" class="page">
+        <svg width="300" height="200" viewBox="0 0 300 200">
+            <!-- Subtle heart-like leaves or something minimal -->
+            <rect x="130" y="100" width="40" height="100" fill="#8B4513" />
+            <path d="M150 100 Q120 70 150 50 Q180 70 150 100" fill="#228B22" />
+            <path d="M150 120 Q120 90 150 70 Q180 90 150 120" fill="#228B22" />
+        </svg>
+        <div class="text dedication">For Daria, whose quiet strength lights the forest, even on the stormiest days.</div>
     </div>
 
     <script>
         let currentPage = 1;
         const totalPages = 9;
 
-        function showPage(pageNum) {
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-                page.style.animation = '';
-            });
-            const page = document.getElementById(`page${pageNum}`);
-            page.classList.add('active');
-            page.style.animation = 'slideIn 1s ease-in-out';
-        }
-
-        function nextPage() {
-            if (currentPage < totalPages) {
-                currentPage++;
-                showPage(currentPage);
-            }
-        }
-
-        function prevPage() {
-            if (currentPage > 1) {
+        document.addEventListener('click', function(event) {
+            const halfWidth = window.innerWidth / 2;
+            if (event.clientX < halfWidth && currentPage > 1) {
+                // Go back
+                document.getElementById('page' + currentPage).classList.remove('active');
                 currentPage--;
-                showPage(currentPage);
+                document.getElementById('page' + currentPage).classList.add('active');
+            } else if (event.clientX >= halfWidth && currentPage < totalPages) {
+                // Go forward
+                document.getElementById('page' + currentPage).classList.remove('active');
+                currentPage++;
+                document.getElementById('page' + currentPage).classList.add('active');
             }
-        }
-
-        showPage(currentPage);
+        });
     </script>
 </body>
 </html>
