@@ -3,244 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Keeper of Stars</title>
+    <title>The Starling's Flight</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
-        body {
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #E3F2FD; /* Soft blue */
+            background: linear-gradient(#4682B4, #1C2526);
             font-family: 'Lora', serif;
-            color: #0D47A1; /* Deep blue */
+            color: #FFF;
             overflow: hidden;
         }
         .page {
             display: none;
             text-align: center;
             padding: 20px;
-            max-width: 600px;
+            position: absolute;
+            width: 90%;
+            max-width: 800px;
+            height: 100%;
             opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            transition: opacity 0.5s ease;
         }
         .page.active {
-            display: block;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             opacity: 1;
-            transform: scale(1);
+        }
+        .page.hidden {
+            opacity: 0;
         }
         .artwork {
-            margin-bottom: 20px;
-        }
-        .artwork svg {
-            max-width: 300px;
-            height: auto;
-        }
-        h1, p {
-            margin: 0;
-            padding: 10px;
-            line-height: 1.5;
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            /* Placeholder for SVG */
+            background: rgba(255, 255, 255, 0.1); /* Temporary placeholder */
+            border-radius: 10px;
         }
         h1 {
-            font-size: 24px;
-            font-weight: 700;
+            font-size: 2.5em;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
         }
         p {
-            font-size: 16px;
+            font-size: 1.2em;
+            line-height: 1.6;
+            max-width: 600px;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
         }
         @media (max-width: 600px) {
-            .page {
-                padding: 10px;
-            }
-            .artwork svg {
-                max-width: 200px;
-            }
             h1 {
-                font-size: 20px;
+                font-size: 1.8em;
             }
             p {
-                font-size: 14px;
+                font-size: 1em;
+            }
+            .artwork {
+                width: 150px;
+                height: 150px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Page 1: Cover -->
-    <div class="page" id="page1">
+    <!-- Cover -->
+    <div class="page active" id="page-0">
+        <h1>The Starling's Flight</h1>
         <div class="artwork">
-            <svg width="300" height="200" viewBox="0 0 300 200">
-                <rect x="0" y="0" width="300" height="200" fill="url(#skyGradient)"/>
-                <defs>
-                    <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="#BBDEFB"/>
-                        <stop offset="100%" stop-color="#0D47A1"/>
-                    </linearGradient>
-                </defs>
-                <circle cx="50" cy="30" r="5" fill="#FFFFFF"/>
-                <circle cx="100" cy="50" r="3" fill="#FFFFFF"/>
-                <circle cx="200" cy="20" r="4" fill="#FFFFFF"/>
-                <path d="M100 150 Q125 170 150 150 Q175 170 200 150" fill="none" stroke="#0D47A1" stroke-width="2"/>
-                <path d="M220 160 Q235 180 250 160" fill="none" stroke="#0D47A1" stroke-width="2"/>
-            </svg>
+            <!-- SVG: A small starling with blue feathers (hex #4682B4) and pale wings (#F5F6F5) perched on a willow branch (#2F4F4F). Background: twilight sky with faint stars (#1C2526). Simple, minimal lines, no facial details, just shapes. -->
         </div>
-        <h1>The Keeper of Stars</h1>
     </div>
-
-    <!-- Page 2: Starweaver's Struggle -->
-    <div class="page" id="page2">
+    <!-- Page 1 -->
+    <div class="page" id="page-1">
+        <p>The Starling felt small in a vast forest, her wings heavy with doubt, as if the sky were too grand for her. The Willow stood nearby, its branches swaying gently, whispering, “Your wings are enough, even when they feel frail.”</p>
         <div class="artwork">
-            <svg width="300" height="200" viewBox="0 0 300 200">
-                <rect x="0" y="0" width="300" height="200" fill="url(#cloudySky)"/>
-                <defs>
-                    <linearGradient id="cloudySky" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="#90CAF9"/>
-                        <stop offset="100%" stop-color="#546E7A"/>
-                    </linearGradient>
-                </defs>
-                <path d="M100 120 Q130 140 160 120" fill="none" stroke="#BBDEFB" stroke-width="4"/>
-                <circle cx="120" cy="100" r="3" fill="#FFFFFF"/>
-                <path d="M80 150 L80 170 Q90 180 100 170 L100 150" fill="#BBDEFB"/>
-            </svg>
+            <!-- SVG: Starling on the ground, blue feathers dim, forest of tall shadows (dark grays). Willow in the background, branches curved protectively. Blue palette (#4682B4) with earthy Willow tones (#2F4F4F). -->
         </div>
-        <p>The Starweaver sat alone, her hands trembling as she wove faint stars into a cloudy sky. Each glow felt too small, too fragile, lost among the brilliance of others. She wondered if her light mattered at all. Yet, in the quiet, her stars still flickered, stubborn and true. Not all stars need to blaze to be seen—some shine softly, and that is enough.</p>
     </div>
-
-    <!-- Page 3: The Guide Appears -->
-    <div class="page" id="page3">
+    <!-- Page 2 -->
+    <div class="page" id="page-2">
+        <p>The Starling tried to fly but stumbled, her heart whispering she’d never soar. The Willow’s roots held the earth steady, its voice soft, “Falling is part of flight. Each stumble carves your path.”</p>
         <div class="artwork">
-            <svg width="300" height="200" viewBox="0 0 300 200">
-                <rect x="0" y="0" width="300" height="200" fill="url(#skyGradient)"/>
-                <path d="M80 150 L80 170 Q90 180 100 170 L100 150" fill="#BBDEFB"/>
-                <path d="M200 140 Q210 160 220 140 L230 150 Q240 170 250 150" fill="#0D47A1"/>
-            </svg>
+            <!-- SVG: Starling mid-fall, wings slightly spread, blue feathers catching light. Willow below, roots visible, grounding the scene. Subtle blue glow (#87CEEB) on feathers. -->
         </div>
-        <p>A fox, the Guide, appeared beside the Starweaver, his fur a deep, earthy blue. He didn’t speak of her dim stars or the clouds above. He simply walked with her, his steps steady, his eyes kind. In his silence, she felt seen, not judged. Some paths, he seemed to say, are meant to be walked slowly, with someone who believes in your light.</p>
     </div>
-
-    <!-- Page 4: The Storm -->
-    <div class="page" id="page4">
+    <!-- Page 3 -->
+    <div class="page" id="page-3">
+        <p>A storm darkened the sky, and the Starling hid, trembling. The Willow bent in the wind but did not break, murmuring, “The storm shapes you, but it is not you. You are the light beyond it.”</p>
         <div class="artwork">
-            <svg width="300" height="200" viewBox="0 0 300 200">
-                <rect x="0" y="0" width="300" height="200" fill="url(#stormySky)"/>
-                <defs>
-                    <linearGradient id="stormySky" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="#546E7A"/>
-                        <stop offset="100%" stop-color="#263238"/>
-                    </linearGradient>
-                </defs>
-                <path d="M80 150 L80 170 Q90 180 100 170 L100 150" fill="#BBDEFB"/>
-                <path d="M200 140 Q210 160 220 140 L230 150 Q240 170 250 150" fill="#0D47A1"/>
-                <path d="M50 50 L60 70 L40 70 Z" fill="#FFFFFF"/>
-            </svg>
+            <!-- SVG: Starling curled under a leaf, blue feathers muted. Willow bending in storm (dark clouds, #2F4F4F branches). Faint light breaking through clouds (#B0C4DE). -->
         </div>
-        <p>A storm rolled in, hiding the Starweaver’s stars in shadow. Her heart sank, heavy with doubt. The Guide stayed close, his fur damp but his gaze unshaken. “Even in shadow,” he seemed to whisper, “your light exists.” She couldn’t see it yet, but his presence reminded her: what is hidden is not lost, only waiting to shine again.</p>
     </div>
-
-    <!-- Page 5: Comparison -->
-    <div class="page" id="page5">
+    <!-- Page 4 -->
+    <div class="page" id="page-4">
+        <p>The Starling watched other birds soar, their wings bold, and felt unworthy. The Willow pointed to her blue feathers, gleaming faintly, and said, “No other bird carries your light.”</p>
         <div class="artwork">
-            <svg width="300" height="200" viewBox="0 0 300 200">
-                <rect x="0" y="0" width="300" height="200" fill="url(#skyGradient)"/>
-                <path d="M80 150 L80 170 Q90 180 100 170 L100 150" fill="#BBDEFB"/>
-                <path d="M200 140 Q210 160 220 140 L230 150 Q240 170 250 150" fill="#0D47A1"/>
-                <circle cx="150" cy="50" r="8" fill="#FFFFFF"/>
-                <circle cx="120" cy="100" r="3" fill="#FFFFFF"/>
-            </svg>
+            <!-- SVG: Starling looking up at distant birds (simple silhouettes). Willow’s branches frame her, highlighting her blue feathers (#4682B4) against a pale sky (#E6E6FA). -->
         </div>
-        <p>The Starweaver gazed at brighter stars, her own feeling small in comparison. “Why can’t I shine like them?” she asked. The Guide pointed to one of her stars, glowing softly. “One true spark,” he said, “outshines a hollow glow.” She looked again, seeing her star’s quiet beauty, and felt a flicker of pride.</p>
     </div>
-
-    <!-- Page 6: The River -->
-    <div class="page" id="page6">
+    <!-- Page 5 -->
+    <div class="page" id="page-5">
+        <p>Exhausted, the Starling rested on the Willow’s branches, her heart heavy. The Willow offered shade, its voice steady, “Rest is not surrender; it’s gathering strength for the skies ahead.”</p>
         <div class="artwork">
-            <svg width="300" height="200" viewBox="0 0 300 200">
-                <rect x="0" y="0" width="300" height="100" fill="url(#skyGradient)"/>
-                <rect x="0" y="100" width="300" height="100" fill="#4FC3F7"/>
-                <path d="M80 150 L80 170 Q90 180 100 170 L100 150" fill="#BBDEFB"/>
-                <path d="M200 140 Q210 160 220 140 L230 150 Q240 170 250 150" fill="#0D47A1"/>
-            </svg>
+            <!-- SVG: Starling nestled in Willow’s branches, blue feathers soft. Willow’s leaves (#2F4F4F) create a canopy, with a soft blue glow (#87CEEB) around them. -->
         </div>
-        <p>By a blue river, they rested. The Guide’s calm felt like an anchor. “You are enough,” he said, “not because of what you do, but because you are.” The Starweaver traced the water’s flow, seeing her reflection ripple but hold. For the first time, she wondered if her light was already whole.</p>
     </div>
-
-    <!-- Page 7: Unique Patterns -->
-    <div class="page" id="page7">
+    <!-- Page 6 -->
+    <div class="page" id="page-6">
+        <p>The Starling feared her song was too faint, too flawed. The Willow hummed softly, its branches swaying, “Your voice matters, even if it trembles. The world hears it.”</p>
         <div class="artwork">
-            <svg width="300" height="200" viewBox="0 0 300 200">
-                <rect x="0" y="0" width="300" height="200" fill="url(#skyGradient)"/>
-                <path d="M80 150 L80 170 Q90 180 100 170 L100 150" fill="#BBDEFB"/>
-                <path d="M200 140 Q210 160 220 140 L230 150 Q240 170 250 150" fill="#0D47A1"/>
-                <path d="M100 50 L120 70 L140 50 L120 30 Z" fill="none" stroke="#FFFFFF" stroke-width="2"/>
-            </svg>
+            <!-- SVG: Starling with open beak, faint sound waves (curved lines, #B0C4DE). Willow beside her, branches flowing like music. Blue sky background (#4682B4). -->
         </div>
-        <p>The Starweaver studied her stars, noticing their unique patterns. Each was flawed, yet together they formed something beautiful. “Your flaws,” the Guide said, “are the map of your strength.” She smiled faintly, seeing her stars not as lesser, but as hers—imperfect, real, and enough.</p>
     </div>
-
-    <!-- Page 8: The Guide’s Lesson -->
-    <div class="page" id="page8">
+    <!-- Page 7 -->
+    <div class="page" id="page-7">
+        <p>The Starling flew higher, hesitantly, her wings unsteady. The Willow swayed below, its voice clear, “Courage is not the absence of fear, but moving through it, one beat at a time.”</p>
         <div class="artwork">
-            <svg width="300" height="200" viewBox="0 0 300 200">
-                <rect x="0" y="0" width="300" height="200" fill="url(#skyGradient)"/>
-                <path d="M80 150 L80 170 Q90 180 100 170 L100 150" fill="#BBDEFB"/>
-                <path d="M200 140 Q210 160 220 140 L230 150 Q240 170 250 150" fill="#0D47A1"/>
-                <path d="M50 100 A50 50 0 0 1 150 100" fill="none" stroke="#FFFFFF" stroke-width="2"/>
-            </svg>
+            <!-- SVG: Starling in mid-flight, wings angled upward, blue feathers catching light. Willow below, smaller, in a vast blue sky (#4682B4) with faint clouds. -->
         </div>
-        <p>Under a tree, the Guide spoke softly. “Your courage to keep weaving,” he said, “teaches others how to shine.” The Starweaver realized her struggle was a gift, not a burden. Her stars, though small, inspired the Guide too. To carry on, she saw, was to light the way for others.</p>
     </div>
-
-    <!-- Page 9: The Clear Sky -->
-    <div class="page" id="page9">
+    <!-- Page 8 -->
+    <div class="page" id="page-8">
+        <p>The Starling saw a distant star, its glow mirrored in her feathers. The Willow nodded, its branches still, “You’ve always carried the light you seek. It was never out of reach.”</p>
         <div class="artwork">
-            <svg width="300" height="200" viewBox="0 0 300 200">
-                <rect x="0" y="0" width="300" height="200" fill="url(#clearSky)"/>
-                <defs>
-                    <linearGradient id="clearSky" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="#4FC3F7"/>
-                        <stop offset="100%" stop-color="#0D47A1"/>
-                    </linearGradient>
-                </defs>
-                <path d="M80 150 L80 170 Q90 180 100 170 L100 150" fill="#BBDEFB"/>
-                <circle cx="100" cy="50" r="6" fill="#FFFFFF"/>
-                <circle cx="150" cy="30" r="4" fill="#FFFFFF"/>
-                <circle cx="200" cy="60" r="5" fill="#FFFFFF"/>
-            </svg>
+            <!-- SVG: Starling flying toward a single star (#F5F6F5), her blue feathers glowing (#4682B4). Willow below, faint, in a starry night sky (#1C2526). -->
         </div>
-        <p>The sky cleared, and the Starweaver’s stars glowed brightly. She stood tall, her heart lighter. She saw her light not as perfect, but as hers—enough to brighten the dark. “The world is brighter,” the Guide said, “because you choose to stay.” And she knew, at last, her stars were enough.</p>
     </div>
-
-    <!-- Page 10: Dedication -->
-    <div class="page" id="page10">
+    <!-- Page 9 -->
+    <div class="page" id="page-9">
+        <p>The Starling soared, her wings wide, the sky no longer vast but hers. The Willow stood below, silent, its presence a quiet strength, watching her claim the stars.</p>
         <div class="artwork">
-            <svg width="300" height="200" viewBox="0 0 300 200">
-                <rect x="0" y="0" width="300" height="200" fill="url(#skyGradient)"/>
-                <circle cx="150" cy="50" r="6" fill="#FFFFFF"/>
-                <path d="M0 150 L300 150" stroke="#BBDEFB" stroke-width="4"/>
-            </svg>
+            <!-- SVG: Starling high in the sky, blue feathers vibrant (#4682B4). Willow small below, rooted, in a twilight sky with scattered stars (#1C2526). -->
         </div>
-        <p>For Daria, whose light shines even in the quietest moments.</p>
+    </div>
+    <!-- Dedication -->
+    <div class="page" id="page-10">
+        <p>For Daria, whose light shines even in the quiet moments, a starling who will always find her sky.</p>
+        <div class="artwork">
+            <!-- SVG: Starling soaring above Willow, both small in a vast starry sky (#1C2526). Blue feathers (#4682B4) and Willow branches (#2F4F4F) glow faintly, serene. -->
+        </div>
     </div>
 
     <script>
-        let currentPage = 1;
-        const totalPages = 10;
+        let currentPage = 0;
+        const pages = document.querySelectorAll('.page');
 
-        function showPage(pageNum) {
-            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-            document.getElementById(`page${pageNum}`).classList.add('active');
-            currentPage = pageNum;
+        function showPage(index) {
+            pages[currentPage].classList.remove('active');
+            pages[currentPage].classList.add('hidden');
+            pages[index].classList.remove('hidden');
+            pages[index].classList.add('active');
+            currentPage = index;
         }
 
         document.addEventListener('click', (e) => {
-            if (e.clientX > window.innerWidth / 2 && currentPage < totalPages) {
+            const half = window.innerWidth / 2;
+            if (e.clientX > half && currentPage < pages.length - 1) {
                 showPage(currentPage + 1);
-            } else if (e.clientX < window.innerWidth / 2 && currentPage > 1) {
+            } else if (e.clientX < half && currentPage > 0) {
                 showPage(currentPage - 1);
             }
         });
 
-        showPage(1);
+        // Ensure first page is visible
+        pages[0].classList.add('active');
+        pages[0].classList.remove('hidden');
     </script>
 </body>
 </html>
