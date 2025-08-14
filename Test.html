@@ -3,229 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Bluebird and the Wise Owl</title>
+    <title>The Keeper of Stars</title>
     <style>
-        body, html {
+        body {
             margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-            background-color: #e6f2ff; /* Soft blue tint */
-            font-family: 'Georgia', serif;
-            color: #333;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            background: #E3F2FD; /* Soft blue */
+            font-family: 'Lora', serif;
+            color: #0D47A1; /* Deep blue */
+            overflow: hidden;
         }
         .page {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            display: none;
             text-align: center;
             padding: 20px;
-            box-sizing: border-box;
+            max-width: 600px;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
-            background-color: rgba(255, 255, 255, 0.8); /* Subtle overlay */
-            border: 1px solid #a3c9ff; /* Blue border for cohesion */
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            transform: scale(0.95);
+            transition: opacity 0.8s ease, transform 0.8s ease;
         }
         .page.active {
+            display: block;
             opacity: 1;
-            z-index: 1;
+            transform: scale(1);
         }
-        .title {
-            font-size: 2.5em;
+        .artwork {
             margin-bottom: 20px;
         }
-        .text {
-            font-size: 1.2em;
-            max-width: 600px;
-            line-height: 1.6;
-            margin: 20px;
+        .artwork svg {
+            max-width: 300px;
+            height: auto;
         }
-        svg {
-            width: 300px;
-            height: 300px;
-            margin-bottom: 20px;
+        h1, p {
+            margin: 0;
+            padding: 10px;
+            line-height: 1.5;
         }
-        /* Click areas for navigation */
-        #nav-left, #nav-right {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 50%;
-            cursor: pointer;
-            z-index: 2;
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
         }
-        #nav-left {
-            left: 0;
+        p {
+            font-size: 16px;
         }
-        #nav-right {
-            right: 0;
+        @media (max-width: 600px) {
+            .page {
+                padding: 10px;
+            }
+            .artwork svg {
+                max-width: 200px;
+            }
+            h1 {
+                font-size: 20px;
+            }
+            p {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="nav-left" onclick="prevPage()"></div>
-    <div id="nav-right" onclick="nextPage()"></div>
-
     <!-- Page 1: Cover -->
     <div class="page" id="page1">
-        <svg viewBox="0 0 200 200">
-            <!-- Bluebird: Pale blue body, golden feather accents for blonde hair, simple lines -->
-            <circle cx="60" cy="100" r="20" fill="#add8e6" stroke="#333" stroke-width="1"/> <!-- Head, pale -->
-            <path d="M60 100 Q50 120 80 130 Q60 140 40 130 Q70 120 60 100" fill="#ffd700" opacity="0.5"/> <!-- Golden feathers -->
-            <path d="M80 100 Q100 80 120 100 Q100 120 80 100" fill="#add8e6"/> <!-- Wings -->
-            <line x1="60" y1="100" x2="60" y2="140" stroke="#333" stroke-width="1"/> <!-- Body line -->
-            <!-- Owl: Earthy brown, wise eyes -->
-            <circle cx="140" cy="100" r="25" fill="#8b4513" stroke="#333" stroke-width="1"/>
-            <circle cx="130" cy="95" r="5" fill="white"/> <circle cx="150" cy="95" r="5" fill="white"/> <!-- Eyes -->
-            <path d="M140 120 L130 140 L150 140 Z" fill="#cd853f"/> <!-- Beak -->
-            <path d="M120 100 Q100 80 100 100 Q100 120 120 100" fill="#8b4513" transform="translate(40,0)"/> <!-- Wings simplified -->
-        </svg>
-        <div class="title">The Bluebird and the Wise Owl</div>
+        <div class="artwork">
+            <svg width="300" height="200" viewBox="0 0 300 200">
+                <rect x="0" y="0" width="300" height="200" fill="url(#skyGradient)"/>
+                <defs>
+                    <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#BBDEFB"/>
+                        <stop offset="100%" stop-color="#0D47A1"/>
+                    </linearGradient>
+                </defs>
+                <circle cx="50" cy="30" r="5" fill="#FFFFFF"/>
+                <circle cx="100" cy="50" r="3" fill="#FFFFFF"/>
+                <circle cx="200" cy="20" r="4" fill="#FFFFFF"/>
+                <path d="M100 150 Q125 170 150 150 Q175 170 200 150" fill="none" stroke="#0D47A1" stroke-width="2"/>
+                <path d="M220 160 Q235 180 250 160" fill="none" stroke="#0D47A1" stroke-width="2"/>
+            </svg>
+        </div>
+        <h1>The Keeper of Stars</h1>
     </div>
 
-    <!-- Page 2: Story Start - Bluebird's Doubt -->
+    <!-- Page 2: Starweaver's Struggle -->
     <div class="page" id="page2">
-        <svg viewBox="0 0 200 200">
-            <!-- Bluebird alone, head bowed -->
-            <circle cx="100" cy="100" r="20" fill="#add8e6" stroke="#333" stroke-width="1"/>
-            <path d="M100 100 Q90 120 120 130 Q100 140 80 130 Q110 120 100 100" fill="#ffd700" opacity="0.5"/>
-            <path d="M120 100 Q140 80 160 100 Q140 120 120 100" fill="#add8e6"/>
-            <line x1="100" y1="100" x2="100" y2="140" stroke="#333" stroke-width="1"/>
-            <!-- Storm clouds subtle -->
-            <circle cx="50" cy="50" r="30" fill="#ccc" opacity="0.3"/>
-            <circle cx="80" cy="40" r="25" fill="#ccc" opacity="0.3"/>
-        </svg>
-        <div class="text">In the quiet forest, where winds whispered secrets, lived a Bluebird with wings of pale sky. She perched on a fragile branch, her song silenced by shadows that whispered, "You are but a fleeting note in the symphony of the world."</div>
+        <div class="artwork">
+            <svg width="300" height="200" viewBox="0 0 300 200">
+                <rect x="0" y="0" width="300" height="200" fill="url(#cloudySky)"/>
+                <defs>
+                    <linearGradient id="cloudySky" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#90CAF9"/>
+                        <stop offset="100%" stop-color="#546E7A"/>
+                    </linearGradient>
+                </defs>
+                <path d="M100 120 Q130 140 160 120" fill="none" stroke="#BBDEFB" stroke-width="4"/>
+                <circle cx="120" cy="100" r="3" fill="#FFFFFF"/>
+                <path d="M80 150 L80 170 Q90 180 100 170 L100 150" fill="#BBDEFB"/>
+            </svg>
+        </div>
+        <p>The Starweaver sat alone, her hands trembling as she wove faint stars into a cloudy sky. Each glow felt too small, too fragile, lost among the brilliance of others. She wondered if her light mattered at all. Yet, in the quiet, her stars still flickered, stubborn and true. Not all stars need to blaze to be seen—some shine softly, and that is enough.</p>
     </div>
 
-    <!-- Page 3: Meeting the Owl -->
+    <!-- Page 3: The Guide Appears -->
     <div class="page" id="page3">
-        <svg viewBox="0 0 200 200">
-            <!-- Bluebird and Owl facing each other -->
-            <circle cx="60" cy="100" r="20" fill="#add8e6" stroke="#333" stroke-width="1"/>
-            <path d="M60 100 Q50 120 80 130 Q60 140 40 130 Q70 120 60 100" fill="#ffd700" opacity="0.5"/>
-            <path d="M80 100 Q100 80 120 100 Q100 120 80 100" fill="#add8e6"/>
-            <circle cx="140" cy="100" r="25" fill="#8b4513" stroke="#333" stroke-width="1"/>
-            <circle cx="130" cy="95" r="5" fill="white"/> <circle cx="150" cy="95" r="5" fill="white"/>
-            <path d="M140 120 L130 140 L150 140 Z" fill="#cd853f"/>
-        </svg>
-        <div class="text">One twilight, she met the Wise Owl, perched unyielding on an ancient oak. His eyes held the depth of forgotten stars. "Why do you hide your flight?" he asked, his voice a steady echo through the leaves.</div>
+        <div class="artwork">
+            <svg width="300" height="200" viewBox="0 0 300 200">
+                <rect x="0" y="0" width="300" height="200" fill="url(#skyGradient)"/>
+                <path d="M80 150 L80 170 Q90 180 100 170 L100 150" fill="#BBDEFB"/>
+                <path d="M200 140 Q210 160 220 140 L230 150 Q240 170 250 150" fill="#0D47A1"/>
+            </svg>
+        </div>
+        <p>A fox, the Guide, appeared beside the Starweaver, his fur a deep, earthy blue. He didn’t speak of her dim stars or the clouds above. He simply walked with her, his steps steady, his eyes kind. In his silence, she felt seen, not judged. Some paths, he seemed to say, are meant to be walked slowly, with someone who believes in your light.</p>
     </div>
 
-    <!-- Page 4: Sharing Struggles -->
+    <!-- Page 4: The Storm -->
     <div class="page" id="page4">
-        <svg viewBox="0 0 200 200">
-            <!-- Bluebird looking up, Owl listening -->
-            <circle cx="60" cy="120" r="20" fill="#add8e6" stroke="#333" stroke-width="1"/>
-            <path d="M60 120 Q50 140 80 150 Q60 160 40 150 Q70 140 60 120" fill="#ffd700" opacity="0.5"/>
-            <circle cx="140" cy="80" r="25" fill="#8b4513" stroke="#333" stroke-width="1"/>
-            <circle cx="130" cy="75" r="5" fill="white"/> <circle cx="150" cy="75" r="5" fill="white"/>
-            <path d="M140 100 L130 120 L150 120 Z" fill="#cd853f"/>
-            <!-- Branch connecting them -->
-            <line x1="60" y1="140" x2="140" y2="100" stroke="#8b4513" stroke-width="3"/>
-        </svg>
-        <div class="text">The Bluebird trembled. "The storms within me rage; I fear my wings are too weak for the vast sky. What if I am not meant to soar?" The Owl listened, unmoved by the gathering dusk, for he knew true strength lay in enduring the unseen gales.</div>
+        <div class="artwork">
+            <svg width="300" height="200" viewBox="0 0 300 200">
+                <rect x="0" y="0" width="300" height="200" fill="url(#stormySky)"/>
+                <defs>
+                    <linearGradient id="stormySky" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#546E7A"/>
+                        <stop offset="100%" stop-color="#263238"/>
+                    </linearGradient>
+                </defs>
+                <path d="M80 150 L80 170 Q90 180 100 170 L100 150" fill="#BBDEFB"/>
+                <path d="M200 140 Q210 160 220 140 L230 150 Q240 170 250 150" fill="#0D47A1"/>
+                <path d="M50 50 L60 70 L40 70 Z" fill="#FFFFFF"/>
+            </svg>
+        </div>
+        <p>A storm rolled in, hiding the Starweaver’s stars in shadow. Her heart sank, heavy with doubt. The Guide stayed close, his fur damp but his gaze unshaken. “Even in shadow,” he seemed to whisper, “your light exists.” She couldn’t see it yet, but his presence reminded her: what is hidden is not lost, only waiting to shine again.</p>
     </div>
 
-    <!-- Page 5: First Wisdom -->
+    <!-- Page 5: Comparison -->
     <div class="page" id="page5">
-        <svg viewBox="0 0 200 200">
-            <!-- Owl speaking, Bluebird attentive -->
-            <circle cx="140" cy="100" r="25" fill="#8b4513" stroke="#333" stroke-width="1"/>
-            <circle cx="130" cy="95" r="5" fill="white"/> <circle cx="150" cy="95" r="5" fill="white"/>
-            <path d="M140 120 L130 140 L150 140 Z" fill="#cd853f"/>
-            <circle cx="60" cy="100" r="20" fill="#add8e6" stroke="#333" stroke-width="1"/>
-            <path d="M60 100 Q50 120 80 130 Q60 140 40 130 Q70 120 60 100" fill="#ffd700" opacity="0.5"/>
-            <!-- Speech bubble subtle -->
-            <ellipse cx="140" cy="60" rx="40" ry="20" fill="#fff" stroke="#333" opacity="0.5"/>
-        </svg>
-        <div class="text">"The sky does not judge the bird," murmured the Owl. "It simply is. Your worth is not in flawless flight, but in rising each time the wind pushes you down. Accept the storms—they carve the deepest valleys of character."</div>
+        <div class="artwork">
+            <svg width="300" height="200" viewBox="0 0 300 200">
+                <rect x="0" y="0" width="300" height="200" fill="url(#skyGradient)"/>
+                <path d="M80 150 L80 170 Q90 180 100 170 L100 150" fill="#BBDEFB"/>
+                <path d="M200 140 Q210 160 220 140 L230 150 Q240 170 250 150" fill="#0D47A1"/>
+                <circle cx="150" cy="50" r="8" fill="#FFFFFF"/>
+                <circle cx="120" cy="100" r="3" fill="#FFFFFF"/>
+            </svg>
+        </div>
+        <p>The Starweaver gazed at brighter stars, her own feeling small in comparison. “Why can’t I shine like them?” she asked. The Guide pointed to one of her stars, glowing softly. “One true spark,” he said, “outshines a hollow glow.” She looked again, seeing her star’s quiet beauty, and felt a flicker of pride.</p>
     </div>
 
-    <!-- Page 6: Trial Together -->
+    <!-- Page 6: The River -->
     <div class="page" id="page6">
-        <svg viewBox="0 0 200 200">
-            <!-- Both in wind, Owl steady, Bluebird struggling -->
-            <circle cx="60" cy="100" r="20" fill="#add8e6" stroke="#333" stroke-width="1" transform="rotate(-10 60 100)"/>
-            <path d="M60 100 Q50 120 80 130 Q60 140 40 130 Q70 120 60 100" fill="#ffd700" opacity="0.5"/>
-            <circle cx="140" cy="100" r="25" fill="#8b4513" stroke="#333" stroke-width="1"/>
-            <circle cx="130" cy="95" r="5" fill="white"/> <circle cx="150" cy="95" r="5" fill="white"/>
-            <!-- Wind lines -->
-            <line x1="0" y1="50" x2="200" y2="60" stroke="#ccc" stroke-width="2" stroke-dasharray="5"/>
-            <line x1="0" y1="70" x2="200" y2="80" stroke="#ccc" stroke-width="2" stroke-dasharray="5"/>
-        </svg>
-        <div class="text">A fierce gale swept through, bending branches and scattering leaves. The Bluebird faltered, but the Owl remained, his roots in wisdom deep. "Virtue is not absence of fear," he said, "but the quiet choice to persist amid the chaos you cannot command."</div>
+        <div class="artwork">
+            <svg width="300" height="200" viewBox="0 0 300 200">
+                <rect x="0" y="0" width="300" height="100" fill="url(#skyGradient)"/>
+                <rect x="0" y="100" width="300" height="100" fill="#4FC3F7"/>
+                <path d="M80 150 L80 170 Q90 180 100 170 L100 150" fill="#BBDEFB"/>
+                <path d="M200 140 Q210 160 220 140 L230 150 Q240 170 250 150" fill="#0D47A1"/>
+            </svg>
+        </div>
+        <p>By a blue river, they rested. The Guide’s calm felt like an anchor. “You are enough,” he said, “not because of what you do, but because you are.” The Starweaver traced the water’s flow, seeing her reflection ripple but hold. For the first time, she wondered if her light was already whole.</p>
     </div>
 
-    <!-- Page 7: Inner Strength -->
+    <!-- Page 7: Unique Patterns -->
     <div class="page" id="page7">
-        <svg viewBox="0 0 200 200">
-            <!-- Bluebird spreading wings, Owl watching -->
-            <circle cx="100" cy="100" r="20" fill="#add8e6" stroke="#333" stroke-width="1"/>
-            <path d="M100 100 Q90 120 120 130 Q100 140 80 130 Q110 120 100 100" fill="#ffd700" opacity="0.5"/>
-            <path d="M80 100 Q60 60 40 100 Q60 140 80 100" fill="#add8e6"/> <!-- Left wing -->
-            <path d="M120 100 Q140 60 160 100 Q140 140 120 100" fill="#add8e6"/> <!-- Right wing -->
-            <circle cx="150" cy="150" r="15" fill="#8b4513" stroke="#333" stroke-width="1"/> <!-- Owl smaller, observing -->
-        </svg>
-        <div class="text">Slowly, the Bluebird unfolded her wings. "What if I fall?" she whispered. The Owl replied, "Falling teaches the art of rising. Your essence is eternal, beyond the fleeting judgments of the world or self. Embrace what is yours to control: your resolve."</div>
+        <div class="artwork">
+            <svg width="300" height="200" viewBox="0 0 300 200">
+                <rect x="0" y="0" width="300" height="200" fill="url(#skyGradient)"/>
+                <path d="M80 150 L80 170 Q90 180 100 170 L100 150" fill="#BBDEFB"/>
+                <path d="M200 140 Q210 160 220 140 L230 150 Q240 170 250 150" fill="#0D47A1"/>
+                <path d="M100 50 L120 70 L140 50 L120 30 Z" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+            </svg>
+        </div>
+        <p>The Starweaver studied her stars, noticing their unique patterns. Each was flawed, yet together they formed something beautiful. “Your flaws,” the Guide said, “are the map of your strength.” She smiled faintly, seeing her stars not as lesser, but as hers—imperfect, real, and enough.</p>
     </div>
 
-    <!-- Page 8: Resolution -->
+    <!-- Page 8: The Guide’s Lesson -->
     <div class="page" id="page8">
-        <svg viewBox="0 0 200 200">
-            <!-- Both flying/steady in clear sky -->
-            <circle cx="80" cy="80" r="20" fill="#add8e6" stroke="#333" stroke-width="1"/>
-            <path d="M80 80 Q70 100 100 110 Q80 120 60 110 Q90 100 80 80" fill="#ffd700" opacity="0.5"/>
-            <path d="M100 80 Q120 60 140 80 Q120 100 100 80" fill="#add8e6"/>
-            <circle cx="120" cy="120" r="25" fill="#8b4513" stroke="#333" stroke-width="1"/>
-            <circle cx="110" cy="115" r="5" fill="white"/> <circle cx="130" cy="115" r="5" fill="white"/>
-            <!-- Sun subtle -->
-            <circle cx="180" cy="20" r="20" fill="#ffd700" opacity="0.5"/>
-        </svg>
-        <div class="text">As dawn broke, the Bluebird soared, her song weaving through the trees. The Owl watched, knowing true companionship lay in silent support. "The world unfolds as it must," he thought. "And in that, we find our quiet power."</div>
+        <div class="artwork">
+            <svg width="300" height="200" viewBox="0 0 300 200">
+                <rect x="0" y="0" width="300" height="200" fill="url(#skyGradient)"/>
+                <path d="M80 150 L80 170 Q90 180 100 170 L100 150" fill="#BBDEFB"/>
+                <path d="M200 140 Q210 160 220 140 L230 150 Q240 170 250 150" fill="#0D47A1"/>
+                <path d="M50 100 A50 50 0 0 1 150 100" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+            </svg>
+        </div>
+        <p>Under a tree, the Guide spoke softly. “Your courage to keep weaving,” he said, “teaches others how to shine.” The Starweaver realized her struggle was a gift, not a burden. Her stars, though small, inspired the Guide too. To carry on, she saw, was to light the way for others.</p>
     </div>
 
-    <!-- Page 9: Dedication -->
+    <!-- Page 9: The Clear Sky -->
     <div class="page" id="page9">
-        <svg viewBox="0 0 200 200">
-            <!-- Simple intertwined branches or hearts subtle -->
-            <path d="M50 100 Q100 50 150 100 Q100 150 50 100" fill="none" stroke="#a3c9ff" stroke-width="3"/>
-            <path d="M50 100 Q100 150 150 100 Q100 50 50 100" fill="none" stroke="#8b4513" stroke-width="3"/>
-        </svg>
-        <div class="text">For Daria, may the winds remind you that strength blooms in the stillness within, enduring like the ancient oaks that weather every storm.</div>
+        <div class="artwork">
+            <svg width="300" height="200" viewBox="0 0 300 200">
+                <rect x="0" y="0" width="300" height="200" fill="url(#clearSky)"/>
+                <defs>
+                    <linearGradient id="clearSky" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#4FC3F7"/>
+                        <stop offset="100%" stop-color="#0D47A1"/>
+                    </linearGradient>
+                </defs>
+                <path d="M80 150 L80 170 Q90 180 100 170 L100 150" fill="#BBDEFB"/>
+                <circle cx="100" cy="50" r="6" fill="#FFFFFF"/>
+                <circle cx="150" cy="30" r="4" fill="#FFFFFF"/>
+                <circle cx="200" cy="60" r="5" fill="#FFFFFF"/>
+            </svg>
+        </div>
+        <p>The sky cleared, and the Starweaver’s stars glowed brightly. She stood tall, her heart lighter. She saw her light not as perfect, but as hers—enough to brighten the dark. “The world is brighter,” the Guide said, “because you choose to stay.” And she knew, at last, her stars were enough.</p>
+    </div>
+
+    <!-- Page 10: Dedication -->
+    <div class="page" id="page10">
+        <div class="artwork">
+            <svg width="300" height="200" viewBox="0 0 300 200">
+                <rect x="0" y="0" width="300" height="200" fill="url(#skyGradient)"/>
+                <circle cx="150" cy="50" r="6" fill="#FFFFFF"/>
+                <path d="M0 150 L300 150" stroke="#BBDEFB" stroke-width="4"/>
+            </svg>
+        </div>
+        <p>For Daria, whose light shines even in the quietest moments.</p>
     </div>
 
     <script>
         let currentPage = 1;
-        const totalPages = 9;
-        document.getElementById('page1').classList.add('active');
+        const totalPages = 10;
 
-        function showPage(page) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(`page${page}`).classList.add('active');
+        function showPage(pageNum) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(`page${pageNum}`).classList.add('active');
+            currentPage = pageNum;
         }
 
-        function nextPage() {
-            if (currentPage < totalPages) {
-                currentPage++;
-                showPage(currentPage);
+        document.addEventListener('click', (e) => {
+            if (e.clientX > window.innerWidth / 2 && currentPage < totalPages) {
+                showPage(currentPage + 1);
+            } else if (e.clientX < window.innerWidth / 2 && currentPage > 1) {
+                showPage(currentPage - 1);
             }
-        }
+        });
 
-        function prevPage() {
-            if (currentPage > 1) {
-                currentPage--;
-                showPage(currentPage);
-            }
-        }
+        showPage(1);
     </script>
 </body>
 </html>
