@@ -115,6 +115,12 @@
     </div>
     <div id="page5" class="page">
         <svg width="300" height="200" viewBox="0 0 300 200">
+            <!-- Raindrops -->
+            <line x1="20" y1="20" x2="20" y2="30" stroke="#4682B4" stroke-width="2" />
+            <line x1="40" y1="40" x2="40" y2="50" stroke="#4682B4" stroke-width="2" />
+            <line x1="60" y1="10" x2="60" y2="20" stroke="#4682B4" stroke-width="2" />
+            <line x1="80" y1="30" x2="80" y2="40" stroke="#4682B4" stroke-width="2" />
+            <line x1="100" y1="20" x2="100" y2="30" stroke="#4682B4" stroke-width="2" />
             <!-- Oak with leaves sheltering -->
             <rect x="50" y="100" width="30" height="100" fill="#8B4513" />
             <circle cx="65" cy="100" r="40" fill="#228B22" />
@@ -131,6 +137,14 @@
     </div>
     <div id="page6" class="page">
         <svg width="300" height="200" viewBox="0 0 300 200">
+            <!-- Sun in upper corner -->
+            <circle cx="260" cy="20" r="15" fill="#FFD700" />
+            <line x1="260" y1="5" x2="260" y2="0" stroke="#FFD700" stroke-width="2" />
+            <line x1="260" y1="35" x2="260" y2="40" stroke="#FFD700" stroke-width="2" />
+            <line x1="245" y1="20" x2="240" y2="20" stroke="#FFD700" stroke-width="2" />
+            <line x1="275" y1="20" x2="280" y2="20" stroke="#FFD700" stroke-width="2" />
+            <line x1="250" y1="10" x2="245" y2="5" stroke="#FFD700" stroke-width="2" />
+            <line x1="270" y1="30" x2="275" y2="35" stroke="#FFD700" stroke-width="2" />
             <!-- Butterfly higher, wings open -->
             <circle cx="200" cy="100" r="20" fill="#ADD8E6" />
             <path d="M200 100 Q220 80 240 100 Q220 120 200 100" fill="#87CEEB" />
@@ -145,6 +159,14 @@
     </div>
     <div id="page7" class="page">
         <svg width="300" height="200" viewBox="0 0 300 200">
+            <!-- Sun in upper corner -->
+            <circle cx="260" cy="20" r="15" fill="#FFD700" />
+            <line x1="260" y1="5" x2="260" y2="0" stroke="#FFD700" stroke-width="2" />
+            <line x1="260" y1="35" x2="260" y2="40" stroke="#FFD700" stroke-width="2" />
+            <line x1="245" y1="20" x2="240" y2="20" stroke="#FFD700" stroke-width="2" />
+            <line x1="275" y1="20" x2="280" y2="20" stroke="#FFD700" stroke-width="2" />
+            <line x1="250" y1="10" x2="245" y2="5" stroke="#FFD700" stroke-width="2" />
+            <line x1="270" y1="30" x2="275" y2="35" stroke="#FFD700" stroke-width="2" />
             <!-- Butterfly flying free, oak in background -->
             <circle cx="250" cy="50" r="20" fill="#ADD8E6" />
             <path d="M250 50 Q270 30 290 50 Q270 70 250 50" fill="#87CEEB" />
@@ -159,7 +181,14 @@
     </div>
     <div id="page8" class="page">
         <svg width="300" height="200" viewBox="0 0 300 200">
-            <!-- Both together, butterfly on branch -->
+            <!-- Rainbow above tree and butterfly -->
+            <path d="M100 50 A100 100 0 0 1 200 50" fill="none" stroke="rgba(255, 0, 0, 0.3)" stroke-width="8" />
+            <path d="M100 50 A95 95 0 0 1 200 50" fill="none" stroke="rgba(255, 165, 0, 0.3)" stroke-width="8" />
+            <path d="M100 50 A90 90 0 0 1 200 50" fill="none" stroke="rgba(255, 255, 0, 0.3)" stroke-width="8" />
+            <path d="M100 50 A85 85 0 0 1 200 50" fill="none" stroke="rgba(0, 128, 0, 0.3)" stroke-width="8" />
+            <path d="M100 50 A80 80 0 0 1 200 50" fill="none" stroke="rgba(0, 0, 255, 0.3)" stroke-width="8" />
+            <path d="M100 50 A75 75 0 0 1 200 50" fill="none" stroke="rgba(128, 0, 128, 0.3)" stroke-width="8" />
+            <!-- Artwork from original page 8: Butterfly on branch -->
             <rect x="130" y="50" width="40" height="150" fill="#8B4513" />
             <circle cx="150" cy="50" r="50" fill="#228B22" />
             <circle cx="110" cy="70" r="40" fill="#228B22" />
@@ -170,21 +199,12 @@
             <line x1="200" y1="80" x2="220" y2="60" stroke="#FFD700" stroke-width="2" />
             <line x1="200" y1="80" x2="220" y2="100" stroke="#FFD700" stroke-width="2" />
         </svg>
-        <div class="text">In time, the Butterfly understood: The world asks not for flawlessness, but for the courage to flutter onward. And in that truth, she found her light.</div>
-    </div>
-    <div id="page9" class="page">
-        <svg width="300" height="200" viewBox="0 0 300 200">
-            <!-- Subtle heart-like leaves or something minimal -->
-            <rect x="130" y="100" width="40" height="100" fill="#8B4513" />
-            <path d="M150 100 Q120 70 150 50 Q180 70 150 100" fill="#228B22" />
-            <path d="M150 120 Q120 90 150 70 Q180 90 150 120" fill="#228B22" />
-        </svg>
         <div class="text dedication">For Daria, whose quiet strength lights the forest, even on the stormiest days.</div>
     </div>
 
     <script>
         let currentPage = 1;
-        const totalPages = 9;
+        const totalPages = 8;
 
         document.addEventListener('click', function(event) {
             const halfWidth = window.innerWidth / 2;
