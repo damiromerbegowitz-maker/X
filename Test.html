@@ -1,289 +1,231 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Soft Blue — a quiet book</title>
-  <style>
-    :root{
-      --bg:#0f1724;
-      --paper:#0b1220;
-      --text:#e6eef8;
-      --muted:#9fb3cf;
-      --accent:#6ea8ff;
-      --page-w:780px;
-      --page-h:520px;
-      --radius:16px;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-    }
-    html,body{height:100%;}
-    body{
-      margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(180deg,#071022 0%, #081524 60%);color:var(--text);
-    }
-    .book{
-      width:var(--page-w);height:var(--page-h);position:relative;perspective:1200px;
-    }
-    .pages{
-      width:100%;height:100%;position:relative;overflow:hidden;border-radius:var(--radius);box-shadow:0 10px 40px rgba(2,6,23,0.8), inset 0 1px 0 rgba(255,255,255,0.02);
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(3,8,16,0.55));
-      border:1px solid rgba(255,255,255,0.03);
-    }
-    .page{
-      position:absolute;inset:0;padding:46px 56px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:space-between;transform-origin:center;transition:transform .5s cubic-bezier(.2,.9,.2,1),opacity .4s;
-      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(3,6,12,0.03));
-    }
-    .page.hidden{opacity:0;pointer-events:none;}
-    .page .art{flex:1;display:flex;align-items:center;justify-content:center;width:100%;}
-    .title{font-weight:600;font-size:28px;letter-spacing:0.4px;color:var(--text);margin-top:10px;text-align:center}
-    .subtitle{font-size:13px;color:var(--muted);margin-top:8px}
-    .text{max-width:66%;text-align:left;font-size:18px;line-height:1.6;color:var(--text)}
-    .text.small{font-size:15px;color:var(--muted)}
-    .dedication{font-size:17px;color:var(--text);text-align:center}
-    /* SVG styling */
-    svg{max-width:100%;height:auto}
-    .tulip{stroke:var(--accent);fill:transparent;stroke-width:2}
-    .hair{fill:#f8e9cf}
-    .skin{fill:#fff8f2}
-    .coat{stroke:rgba(255,255,255,0.06);fill:none}
-    .me{stroke:var(--muted);fill:transparent}
-    /* page stacking */
-    .page{z-index:1}
-    .page[data-index="0"]{z-index:9}
-    .page[data-index="1"]{z-index:8}
-    .page[data-index="2"]{z-index:7}
-    .page[data-index="3"]{z-index:6}
-    .page[data-index="4"]{z-index:5}
-    .page[data-index="5"]{z-index:4}
-    .page[data-index="6"]{z-index:3}
-    .page[data-index="7"]{z-index:2}
-    .page[data-index="8"]{z-index:1}
-    /* small footer hint (invisible) for accessibility only */
-    .sr-only{position:absolute;left:-9999px}
-    @media (max-width:840px){:root{--page-w:92vw;--page-h:62vh} .text{max-width:78%}}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Bluebird and the Wise Owl</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background-color: #e6f2ff; /* Soft blue tint */
+            font-family: 'Georgia', serif;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-color: rgba(255, 255, 255, 0.8); /* Subtle overlay */
+            border: 1px solid #a3c9ff; /* Blue border for cohesion */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        .page.active {
+            opacity: 1;
+            z-index: 1;
+        }
+        .title {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .text {
+            font-size: 1.2em;
+            max-width: 600px;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        svg {
+            width: 300px;
+            height: 300px;
+            margin-bottom: 20px;
+        }
+        /* Click areas for navigation */
+        #nav-left, #nav-right {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            cursor: pointer;
+            z-index: 2;
+        }
+        #nav-left {
+            left: 0;
+        }
+        #nav-right {
+            right: 0;
+        }
+    </style>
 </head>
 <body>
-  <div class="book" id="book" aria-label="quiet book">
-    <div class="pages" id="pages">
+    <div id="nav-left" onclick="prevPage()"></div>
+    <div id="nav-right" onclick="nextPage()"></div>
 
-      <!-- Page 1: Cover -->
-      <section class="page" data-index="0">
-        <div class="art">
-          <svg viewBox="0 0 780 360" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-            <defs>
-              <linearGradient id="g" x1="0" x2="1">
-                <stop offset="0" stop-color="#0a2240"/>
-                <stop offset="1" stop-color="#07243a"/>
-              </linearGradient>
-            </defs>
-            <rect x="12" y="12" width="756" height="336" rx="14" fill="url(#g)" opacity="0.9"/>
-            <!-- tulips cluster left -->
-            <g transform="translate(90,60) scale(1.1)">
-              <path class="tulip" d="M40 220 C40 170 60 150 72 130 S110 60 118 40"/>
-              <path class="tulip" d="M60 220 C60 175 86 150 96 132 S130 68 138 48"/>
-              <circle cx="64" cy="226" r="6" fill="var(--accent)"/>
-            </g>
-            <!-- silhouettes center -->
-            <g transform="translate(300,60)">
-              <!-- her (left) -->
-              <g transform="translate(-40,10)">
-                <circle class="skin" cx="40" cy="54" r="26"/>
-                <path class="hair" d="M14 56 C22 30 58 30 66 58 C56 70 24 70 14 56 Z"/>
-                <rect x="14" y="86" width="52" height="90" rx="12" fill="transparent" stroke="rgba(255,255,255,0.06)"/>
-                <circle cx="40" cy="64" r="2" fill="#0b2337"/>
-              </g>
-              <!-- me (right) -->
-              <g transform="translate(80,28)">
-                <circle class="skin" cx="40" cy="54" r="26"/>
-                <path class="me" d="M14 120 C26 96 62 96 74 120"/>
-                <rect x="14" y="86" width="52" height="90" rx="12" fill="transparent" stroke="rgba(255,255,255,0.03)"/>
-              </g>
-            </g>
-          </svg>
-        </div>
-        <div style="width:100%;display:flex;flex-direction:column;align-items:center;">
-          <div class="title">soft blue</div>
-          <div class="subtitle">small pages for a heavy heart</div>
-        </div>
-      </section>
-
-      <!-- Page 2 -->
-      <section class="page" data-index="1">
-        <div class="art">
-          <svg viewBox="0 0 780 320" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-            <g transform="translate(40,28)">
-              <text x="0" y="28" fill="var(--muted)" font-size="14">He said, quietly:</text>
-              <text x="0" y="66" fill="var(--text)" font-size="20">"There is a steady thing beneath your doubt —</text>
-              <text x="0" y="96" fill="var(--text)" font-size="20">a small ground that remembers you are enough."</text>
-              <g transform="translate(520,16)">
-                <path class="tulip" d="M10 220 C10 200 28 180 42 164 S78 124 88 110"/>
-              </g>
-            </g>
-          </svg>
-        </div>
-        <div class="text">She laughed, as if testing whether the sentence would break. It didn't. The world kept its shape.</div>
-      </section>
-
-      <!-- Page 3 -->
-      <section class="page" data-index="2">
-        <div class="art">
-          <svg viewBox="0 0 780 320" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-            <g transform="translate(20,18)">
-              <rect x="0" y="0" width="380" height="280" rx="10" fill="rgba(110,168,255,0.04)" stroke="rgba(110,168,255,0.06)"/>
-              <text x="24" y="48" fill="var(--text)" font-size="18">Some days the feeling is a weather: heavy, gray, unasked-for.</text>
-              <text x="24" y="84" fill="var(--muted)" font-size="16">He doesn't try to empty the sky. He brings a small cup of warm tea.</text>
-            </g>
-            <g transform="translate(420,12)">
-              <path class="tulip" d="M60 220 C60 190 86 160 100 148 S150 110 160 96"/>
-              <circle cx="64" cy="230" r="5" fill="var(--accent)"/>
-            </g>
-          </svg>
-        </div>
-        <div class="text small">Care is not always a fix. Sometimes it is the courage to remain with another's weather.</div>
-      </section>
-
-      <!-- Page 4 -->
-      <section class="page" data-index="3">
-        <div class="art">
-          <svg viewBox="0 0 780 320" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-            <g transform="translate(0,10)">
-              <text x="40" y="52" fill="var(--muted)" font-size="14">She asked, softly:</text>
-              <text x="40" y="96" fill="var(--text)" font-size="20">"How do I stop saying I'm not enough?"</text>
-              <text x="40" y="140" fill="var(--text)" font-size="18">He said, without hurry:</text>
-              <text x="40" y="178" fill="var(--text)" font-size="18">"You start by noticing the voice. You don't have to believe its every sentence."</text>
-            </g>
-            <g transform="translate(500,40)">
-              <path class="tulip" d="M10 220 C10 200 34 172 50 154 S94 110 102 94"/>
-            </g>
-          </svg>
-        </div>
-        <div class="text">Recognition is a small cleaving. When the voice is noticed, it becomes less of a law and more of a weather report.</div>
-      </section>
-
-      <!-- Page 5 -->
-      <section class="page" data-index="4">
-        <div class="art">
-          <svg viewBox="0 0 780 320" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-            <g transform="translate(36,18)">
-              <path d="M12 240 Q120 80 360 140 T740 180" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="2"/>
-              <text x="0" y="40" fill="var(--text)" font-size="18">He said, "You do not owe the world certainty about your worth."</text>
-              <text x="0" y="74" fill="var(--muted)" font-size="15">"You owe honesty to yourself. Start there."</text>
-            </g>
-            <g transform="translate(520,40)">
-              <path class="tulip" d="M20 220 C24 200 46 174 64 156"/>
-            </g>
-          </svg>
-        </div>
-        <div class="text small">Worth is not an assignment to be completed; it is a landscape you walk through and tend.</div>
-      </section>
-
-      <!-- Page 6 -->
-      <section class="page" data-index="5">
-        <div class="art">
-          <svg viewBox="0 0 780 320" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-            <g transform="translate(40,10)">
-              <text x="0" y="48" fill="var(--text)" font-size="20">Sometimes she compared herself to light she wasn't ready to be.</text>
-              <text x="0" y="86" fill="var(--muted)" font-size="16">He said, "A lamp is still a lamp in the dark. Let your small light be enough for now."</text>
-            </g>
-            <g transform="translate(480,28)">
-              <path class="tulip" d="M18 220 C34 190 64 166 86 150"/>
-              <circle cx="30" cy="230" r="4" fill="var(--accent)"/>
-            </g>
-          </svg>
-        </div>
-        <div class="text">Patience with the self is not indulgence; it's a wise architecture for growth.</div>
-      </section>
-
-      <!-- Page 7 -->
-      <section class="page" data-index="6">
-        <div class="art">
-          <svg viewBox="0 0 780 320" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-            <g transform="translate(32,22)">
-              <text x="0" y="48" fill="var(--muted)" font-size="14">One evening they watched a streetlamp blink back to life.</text>
-              <text x="0" y="86" fill="var(--text)" font-size="18">He said, "Even small returns are returns. They gather into a life."</text>
-            </g>
-            <g transform="translate(520,10)">
-              <path class="tulip" d="M20 220 C34 184 70 150 92 130"/>
-            </g>
-          </svg>
-        </div>
-        <div class="text small">Every small repair is evidence. Keep the evidence close when doubt knocks.</div>
-      </section>
-
-      <!-- Page 8 -->
-      <section class="page" data-index="7">
-        <div class="art">
-          <svg viewBox="0 0 780 320" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-            <g transform="translate(24,14)">
-              <text x="0" y="56" fill="var(--text)" font-size="20">She asked for no promise. She asked only for presence.</text>
-              <text x="0" y="96" fill="var(--muted)" font-size="16">He replied, "Presence is a practice. I will practice with you."</text>
-            </g>
-            <g transform="translate(520,18)">
-              <path class="tulip" d="M10 220 C18 196 44 164 64 146"/>
-            </g>
-          </svg>
-        </div>
-        <div class="text">Presence is quiet work: showing up, listening, keeping safe the small things that matter.</div>
-      </section>
-
-      <!-- Page 9: Dedication -->
-      <section class="page" data-index="8">
-        <div class="art">
-          <svg viewBox="0 0 780 320" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-            <g transform="translate(80,20)">
-              <text x="0" y="60" fill="var(--muted)" font-size="14">For Daria,</text>
-              <text x="0" y="120" fill="var(--text)" font-size="20">May you hold your small lights as evidence of a life well-tended.</text>
-              <text x="0" y="160" fill="var(--muted)" font-size="15">There is no vote to be held on your worth. There is only the quiet work of being kind to yourself.</text>
-            </g>
-            <g transform="translate(520,40)">
-              <path class="tulip" d="M20 220 C28 198 48 172 66 154"/>
-            </g>
-          </svg>
-        </div>
-        <div class="dedication">— quietly, from someone who believes in the steady thing beneath your doubt.</div>
-      </section>
-
+    <!-- Page 1: Cover -->
+    <div class="page" id="page1">
+        <svg viewBox="0 0 200 200">
+            <!-- Bluebird: Pale blue body, golden feather accents for blonde hair, simple lines -->
+            <circle cx="60" cy="100" r="20" fill="#add8e6" stroke="#333" stroke-width="1"/> <!-- Head, pale -->
+            <path d="M60 100 Q50 120 80 130 Q60 140 40 130 Q70 120 60 100" fill="#ffd700" opacity="0.5"/> <!-- Golden feathers -->
+            <path d="M80 100 Q100 80 120 100 Q100 120 80 100" fill="#add8e6"/> <!-- Wings -->
+            <line x1="60" y1="100" x2="60" y2="140" stroke="#333" stroke-width="1"/> <!-- Body line -->
+            <!-- Owl: Earthy brown, wise eyes -->
+            <circle cx="140" cy="100" r="25" fill="#8b4513" stroke="#333" stroke-width="1"/>
+            <circle cx="130" cy="95" r="5" fill="white"/> <circle cx="150" cy="95" r="5" fill="white"/> <!-- Eyes -->
+            <path d="M140 120 L130 140 L150 140 Z" fill="#cd853f"/> <!-- Beak -->
+            <path d="M120 100 Q100 80 100 100 Q100 120 120 100" fill="#8b4513" transform="translate(40,0)"/> <!-- Wings simplified -->
+        </svg>
+        <div class="title">The Bluebird and the Wise Owl</div>
     </div>
-  </div>
 
-  <div class="sr-only" role="status" aria-live="polite">Book ready</div>
+    <!-- Page 2: Story Start - Bluebird's Doubt -->
+    <div class="page" id="page2">
+        <svg viewBox="0 0 200 200">
+            <!-- Bluebird alone, head bowed -->
+            <circle cx="100" cy="100" r="20" fill="#add8e6" stroke="#333" stroke-width="1"/>
+            <path d="M100 100 Q90 120 120 130 Q100 140 80 130 Q110 120 100 100" fill="#ffd700" opacity="0.5"/>
+            <path d="M120 100 Q140 80 160 100 Q140 120 120 100" fill="#add8e6"/>
+            <line x1="100" y1="100" x2="100" y2="140" stroke="#333" stroke-width="1"/>
+            <!-- Storm clouds subtle -->
+            <circle cx="50" cy="50" r="30" fill="#ccc" opacity="0.3"/>
+            <circle cx="80" cy="40" r="25" fill="#ccc" opacity="0.3"/>
+        </svg>
+        <div class="text">In the quiet forest, where winds whispered secrets, lived a Bluebird with wings of pale sky. She perched on a fragile branch, her song silenced by shadows that whispered, "You are but a fleeting note in the symphony of the world."</div>
+    </div>
 
-  <script>
-    (function(){
-      const pages = Array.from(document.querySelectorAll('.page'));
-      let idx = 0;
-      function show(i){
-        pages.forEach((p,pn)=>{
-          const offset = pn - i;
-          p.style.transform = `translateX(${offset*8}px) translateZ(0) scale(${1 - Math.min(Math.abs(offset)*0.04,0.18)})`;
-          p.style.opacity = (pn === i) ? '1' : (Math.abs(offset) > 3 ? '0' : '0.92');
-          p.style.pointerEvents = (pn === i) ? 'auto' : 'none';
-        });
-      }
-      show(idx);
-      const container = document.getElementById('pages');
-      container.addEventListener('click', (e)=>{
-        const rect = container.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        if(x > rect.width * 0.55){ // forward
-          idx = Math.min(pages.length-1, idx+1);
-        } else if (x < rect.width * 0.45){ // back
-          idx = Math.max(0, idx-1);
+    <!-- Page 3: Meeting the Owl -->
+    <div class="page" id="page3">
+        <svg viewBox="0 0 200 200">
+            <!-- Bluebird and Owl facing each other -->
+            <circle cx="60" cy="100" r="20" fill="#add8e6" stroke="#333" stroke-width="1"/>
+            <path d="M60 100 Q50 120 80 130 Q60 140 40 130 Q70 120 60 100" fill="#ffd700" opacity="0.5"/>
+            <path d="M80 100 Q100 80 120 100 Q100 120 80 100" fill="#add8e6"/>
+            <circle cx="140" cy="100" r="25" fill="#8b4513" stroke="#333" stroke-width="1"/>
+            <circle cx="130" cy="95" r="5" fill="white"/> <circle cx="150" cy="95" r="5" fill="white"/>
+            <path d="M140 120 L130 140 L150 140 Z" fill="#cd853f"/>
+        </svg>
+        <div class="text">One twilight, she met the Wise Owl, perched unyielding on an ancient oak. His eyes held the depth of forgotten stars. "Why do you hide your flight?" he asked, his voice a steady echo through the leaves.</div>
+    </div>
+
+    <!-- Page 4: Sharing Struggles -->
+    <div class="page" id="page4">
+        <svg viewBox="0 0 200 200">
+            <!-- Bluebird looking up, Owl listening -->
+            <circle cx="60" cy="120" r="20" fill="#add8e6" stroke="#333" stroke-width="1"/>
+            <path d="M60 120 Q50 140 80 150 Q60 160 40 150 Q70 140 60 120" fill="#ffd700" opacity="0.5"/>
+            <circle cx="140" cy="80" r="25" fill="#8b4513" stroke="#333" stroke-width="1"/>
+            <circle cx="130" cy="75" r="5" fill="white"/> <circle cx="150" cy="75" r="5" fill="white"/>
+            <path d="M140 100 L130 120 L150 120 Z" fill="#cd853f"/>
+            <!-- Branch connecting them -->
+            <line x1="60" y1="140" x2="140" y2="100" stroke="#8b4513" stroke-width="3"/>
+        </svg>
+        <div class="text">The Bluebird trembled. "The storms within me rage; I fear my wings are too weak for the vast sky. What if I am not meant to soar?" The Owl listened, unmoved by the gathering dusk, for he knew true strength lay in enduring the unseen gales.</div>
+    </div>
+
+    <!-- Page 5: First Wisdom -->
+    <div class="page" id="page5">
+        <svg viewBox="0 0 200 200">
+            <!-- Owl speaking, Bluebird attentive -->
+            <circle cx="140" cy="100" r="25" fill="#8b4513" stroke="#333" stroke-width="1"/>
+            <circle cx="130" cy="95" r="5" fill="white"/> <circle cx="150" cy="95" r="5" fill="white"/>
+            <path d="M140 120 L130 140 L150 140 Z" fill="#cd853f"/>
+            <circle cx="60" cy="100" r="20" fill="#add8e6" stroke="#333" stroke-width="1"/>
+            <path d="M60 100 Q50 120 80 130 Q60 140 40 130 Q70 120 60 100" fill="#ffd700" opacity="0.5"/>
+            <!-- Speech bubble subtle -->
+            <ellipse cx="140" cy="60" rx="40" ry="20" fill="#fff" stroke="#333" opacity="0.5"/>
+        </svg>
+        <div class="text">"The sky does not judge the bird," murmured the Owl. "It simply is. Your worth is not in flawless flight, but in rising each time the wind pushes you down. Accept the storms—they carve the deepest valleys of character."</div>
+    </div>
+
+    <!-- Page 6: Trial Together -->
+    <div class="page" id="page6">
+        <svg viewBox="0 0 200 200">
+            <!-- Both in wind, Owl steady, Bluebird struggling -->
+            <circle cx="60" cy="100" r="20" fill="#add8e6" stroke="#333" stroke-width="1" transform="rotate(-10 60 100)"/>
+            <path d="M60 100 Q50 120 80 130 Q60 140 40 130 Q70 120 60 100" fill="#ffd700" opacity="0.5"/>
+            <circle cx="140" cy="100" r="25" fill="#8b4513" stroke="#333" stroke-width="1"/>
+            <circle cx="130" cy="95" r="5" fill="white"/> <circle cx="150" cy="95" r="5" fill="white"/>
+            <!-- Wind lines -->
+            <line x1="0" y1="50" x2="200" y2="60" stroke="#ccc" stroke-width="2" stroke-dasharray="5"/>
+            <line x1="0" y1="70" x2="200" y2="80" stroke="#ccc" stroke-width="2" stroke-dasharray="5"/>
+        </svg>
+        <div class="text">A fierce gale swept through, bending branches and scattering leaves. The Bluebird faltered, but the Owl remained, his roots in wisdom deep. "Virtue is not absence of fear," he said, "but the quiet choice to persist amid the chaos you cannot command."</div>
+    </div>
+
+    <!-- Page 7: Inner Strength -->
+    <div class="page" id="page7">
+        <svg viewBox="0 0 200 200">
+            <!-- Bluebird spreading wings, Owl watching -->
+            <circle cx="100" cy="100" r="20" fill="#add8e6" stroke="#333" stroke-width="1"/>
+            <path d="M100 100 Q90 120 120 130 Q100 140 80 130 Q110 120 100 100" fill="#ffd700" opacity="0.5"/>
+            <path d="M80 100 Q60 60 40 100 Q60 140 80 100" fill="#add8e6"/> <!-- Left wing -->
+            <path d="M120 100 Q140 60 160 100 Q140 140 120 100" fill="#add8e6"/> <!-- Right wing -->
+            <circle cx="150" cy="150" r="15" fill="#8b4513" stroke="#333" stroke-width="1"/> <!-- Owl smaller, observing -->
+        </svg>
+        <div class="text">Slowly, the Bluebird unfolded her wings. "What if I fall?" she whispered. The Owl replied, "Falling teaches the art of rising. Your essence is eternal, beyond the fleeting judgments of the world or self. Embrace what is yours to control: your resolve."</div>
+    </div>
+
+    <!-- Page 8: Resolution -->
+    <div class="page" id="page8">
+        <svg viewBox="0 0 200 200">
+            <!-- Both flying/steady in clear sky -->
+            <circle cx="80" cy="80" r="20" fill="#add8e6" stroke="#333" stroke-width="1"/>
+            <path d="M80 80 Q70 100 100 110 Q80 120 60 110 Q90 100 80 80" fill="#ffd700" opacity="0.5"/>
+            <path d="M100 80 Q120 60 140 80 Q120 100 100 80" fill="#add8e6"/>
+            <circle cx="120" cy="120" r="25" fill="#8b4513" stroke="#333" stroke-width="1"/>
+            <circle cx="110" cy="115" r="5" fill="white"/> <circle cx="130" cy="115" r="5" fill="white"/>
+            <!-- Sun subtle -->
+            <circle cx="180" cy="20" r="20" fill="#ffd700" opacity="0.5"/>
+        </svg>
+        <div class="text">As dawn broke, the Bluebird soared, her song weaving through the trees. The Owl watched, knowing true companionship lay in silent support. "The world unfolds as it must," he thought. "And in that, we find our quiet power."</div>
+    </div>
+
+    <!-- Page 9: Dedication -->
+    <div class="page" id="page9">
+        <svg viewBox="0 0 200 200">
+            <!-- Simple intertwined branches or hearts subtle -->
+            <path d="M50 100 Q100 50 150 100 Q100 150 50 100" fill="none" stroke="#a3c9ff" stroke-width="3"/>
+            <path d="M50 100 Q100 150 150 100 Q100 50 50 100" fill="none" stroke="#8b4513" stroke-width="3"/>
+        </svg>
+        <div class="text">For Daria, may the winds remind you that strength blooms in the stillness within, enduring like the ancient oaks that weather every storm.</div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 9;
+        document.getElementById('page1').classList.add('active');
+
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(`page${page}`).classList.add('active');
         }
-        show(idx);
-      });
-      window.addEventListener('keydown',(e)=>{
-        if(e.key === 'ArrowRight') idx = Math.min(pages.length-1, idx+1);
-        if(e.key === 'ArrowLeft') idx = Math.max(0, idx-1);
-        show(idx);
-      });
-      // touch swipe
-      let startX = null;
-      container.addEventListener('touchstart',(e)=>{startX = e.changedTouches[0].clientX});
-      container.addEventListener('touchend',(e)=>{if(startX==null) return; const dx = e.changedTouches[0].clientX - startX; if(dx < -40) idx = Math.min(pages.length-1, idx+1); if(dx > 40) idx = Math.max(0, idx-1); show(idx); startX=null});
-      // ensure focus
-      container.tabIndex = 0;
-    })();
-  </script>
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                showPage(currentPage);
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                showPage(currentPage);
+            }
+        }
+    </script>
 </body>
 </html>
