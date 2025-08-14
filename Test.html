@@ -3,181 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Starling's Flight</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <title>The Light in the Blue</title>
     <style>
-        * {
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-        body {
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(#4682B4, #1C2526);
+            background: linear-gradient(to bottom, #1e3a8a, #ffffff);
             font-family: 'Lora', serif;
-            color: #FFF;
+            color: #1e3a8a;
             overflow: hidden;
         }
         .page {
             display: none;
+            width: 80%;
+            max-width: 800px;
             text-align: center;
             padding: 20px;
-            position: absolute;
-            width: 90%;
-            max-width: 800px;
-            height: 100%;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 1s ease-in-out;
         }
         .page.active {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            display: block;
             opacity: 1;
         }
-        .page.hidden {
-            opacity: 0;
-        }
         .artwork {
-            width: 200px;
-            height: 200px;
+            width: 300px;
+            height: 300px;
             margin: 20px auto;
-            /* Placeholder for SVG */
-            background: rgba(255, 255, 255, 0.1); /* Temporary placeholder */
+            background: #f0f0f0; /* Placeholder for artwork */
             border-radius: 10px;
         }
         h1 {
             font-size: 2.5em;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             margin-bottom: 20px;
         }
         p {
             font-size: 1.2em;
             line-height: 1.6;
             max-width: 600px;
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            margin: 0 auto;
         }
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 1.8em;
-            }
-            p {
-                font-size: 1em;
-            }
-            .artwork {
-                width: 150px;
-                height: 150px;
-            }
+        .navigation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+        .nav-left, .nav-right {
+            width: 50%;
+            height: 100%;
+            cursor: pointer;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <!-- Cover -->
-    <div class="page active" id="page-0">
-        <h1>The Starling's Flight</h1>
-        <div class="artwork">
-            <!-- SVG: A small starling with blue feathers (hex #4682B4) and pale wings (#F5F6F5) perched on a willow branch (#2F4F4F). Background: twilight sky with faint stars (#1C2526). Simple, minimal lines, no facial details, just shapes. -->
-        </div>
+    <div class="navigation">
+        <div class="nav-left" onclick="prevPage()"></div>
+        <div class="nav-right" onclick="nextPage()"></div>
     </div>
-    <!-- Page 1 -->
-    <div class="page" id="page-1">
-        <p>The Starling felt small in a vast forest, her wings heavy with doubt, as if the sky were too grand for her. The Willow stood nearby, its branches swaying gently, whispering, “Your wings are enough, even when they feel frail.”</p>
-        <div class="artwork">
-            <!-- SVG: Starling on the ground, blue feathers dim, forest of tall shadows (dark grays). Willow in the background, branches curved protectively. Blue palette (#4682B4) with earthy Willow tones (#2F4F4F). -->
-        </div>
+    <div class="page" id="page1">
+        <h1>The Light in the Blue</h1>
+        <div class="artwork"></div> <!-- Cover artwork -->
     </div>
-    <!-- Page 2 -->
-    <div class="page" id="page-2">
-        <p>The Starling tried to fly but stumbled, her heart whispering she’d never soar. The Willow’s roots held the earth steady, its voice soft, “Falling is part of flight. Each stumble carves your path.”</p>
-        <div class="artwork">
-            <!-- SVG: Starling mid-fall, wings slightly spread, blue feathers catching light. Willow below, roots visible, grounding the scene. Subtle blue glow (#87CEEB) on feathers. -->
-        </div>
+    <div class="page" id="page2">
+        <p>Luna walked through a world draped in blue, her steps heavy with the weight of unseen eyes. She felt small, as if her light flickered too faintly to be seen. Shade walked beside her, silent but steady, his presence like a warm stone in a cold stream. “The world does not measure your worth,” he said softly. “It is enough to be.” Luna paused, her breath catching. Could it be so simple? To exist, to breathe, was that not a spark in itself?</p>
+        <div class="artwork"></div> <!-- Artwork: Luna and Shade on a blue path -->
     </div>
-    <!-- Page 3 -->
-    <div class="page" id="page-3">
-        <p>A storm darkened the sky, and the Starling hid, trembling. The Willow bent in the wind but did not break, murmuring, “The storm shapes you, but it is not you. You are the light beyond it.”</p>
-        <div class="artwork">
-            <!-- SVG: Starling curled under a leaf, blue feathers muted. Willow bending in storm (dark clouds, #2F4F4F branches). Faint light breaking through clouds (#B0C4DE). -->
-        </div>
+    <div class="page" id="page3">
+        <p>The path grew steep, and Luna’s heart whispered doubts: “You are not enough.” She stumbled, her pale hands trembling. Shade knelt beside her, pointing to a single star above. “It shines alone, yet it is enough for the sky,” he said. “Your strength is not in being flawless, but in rising each time you fall.” Luna looked up, her blue eyes catching the star’s light. For the first time, she felt the ground beneath her as a friend, not a foe.</p>
+        <div class="artwork"></div> <!-- Artwork: Luna looking at a star -->
     </div>
-    <!-- Page 4 -->
-    <div class="page" id="page-4">
-        <p>The Starling watched other birds soar, their wings bold, and felt unworthy. The Willow pointed to her blue feathers, gleaming faintly, and said, “No other bird carries your light.”</p>
-        <div class="artwork">
-            <!-- SVG: Starling looking up at distant birds (simple silhouettes). Willow’s branches frame her, highlighting her blue feathers (#4682B4) against a pale sky (#E6E6FA). -->
-        </div>
+    <div class="page" id="page4">
+        <p>A river blocked their way, its currents swift and cold. Luna feared it would sweep her away. “I cannot cross,” she said, her voice small. Shade stood at the edge, unmoved. “The river does not ask you to be stronger than it,” he said. “It asks only that you step forward.” Luna took a breath, her blonde hair catching the blue light. She stepped in, and the water parted around her courage, not her strength.</p>
+        <div class="artwork"></div> <!-- Artwork: Luna crossing a river -->
     </div>
-    <!-- Page 5 -->
-    <div class="page" id="page-5">
-        <p>Exhausted, the Starling rested on the Willow’s branches, her heart heavy. The Willow offered shade, its voice steady, “Rest is not surrender; it’s gathering strength for the skies ahead.”</p>
-        <div class="artwork">
-            <!-- SVG: Starling nestled in Willow’s branches, blue feathers soft. Willow’s leaves (#2F4F4F) create a canopy, with a soft blue glow (#87CEEB) around them. -->
-        </div>
+    <div class="page" id="page5">
+        <p>In a quiet glade, Luna sat, her heart heavy with others’ expectations. “Why do I seek their approval?” she asked. Shade traced a circle in the dirt. “The circle is whole without adding more,” he said. “Your worth is not borrowed from others’ eyes.” Luna touched the circle, feeling its completeness. She smiled, a small spark of blue igniting within her. Shade nodded, his presence a quiet anchor.</p>
+        <div class="artwork"></div> <!-- Artwork: Luna and Shade in a glade -->
     </div>
-    <!-- Page 6 -->
-    <div class="page" id="page-6">
-        <p>The Starling feared her song was too faint, too flawed. The Willow hummed softly, its branches swaying, “Your voice matters, even if it trembles. The world hears it.”</p>
-        <div class="artwork">
-            <!-- SVG: Starling with open beak, faint sound waves (curved lines, #B0C4DE). Willow beside her, branches flowing like music. Blue sky background (#4682B4). -->
-        </div>
+    <div class="page" id="page6">
+        <p>A storm came, its winds howling doubts. Luna shrank, feeling her light dim. Shade stood firm, his voice cutting through the gale. “The storm does not define you,” he said. “It passes, but your light remains.” Luna closed her eyes, finding a stillness within. The winds roared, but she stood, her pale skin glowing faintly blue. She was not the storm, nor its master—she was Luna, and that was enough.</p>
+        <div class="artwork"></div> <!-- Artwork: Luna in a storm -->
     </div>
-    <!-- Page 7 -->
-    <div class="page" id="page-7">
-        <p>The Starling flew higher, hesitantly, her wings unsteady. The Willow swayed below, its voice clear, “Courage is not the absence of fear, but moving through it, one beat at a time.”</p>
-        <div class="artwork">
-            <!-- SVG: Starling in mid-flight, wings angled upward, blue feathers catching light. Willow below, smaller, in a vast blue sky (#4682B4) with faint clouds. -->
-        </div>
+    <div class="page" id="page7">
+        <p>At a cliff’s edge, Luna hesitated, fearing the fall. “What if I fail?” she whispered. Shade looked to the horizon. “Failure is not the end,” he said. “It is the path to knowing yourself.” Luna took a step, her heart pounding but steady. The cliff did not crumble, and the sky opened wide. Her blue eyes shone, reflecting a strength she hadn’t seen before. Shade smiled, his warmth unspoken.</p>
+        <div class="artwork"></div> <!-- Artwork: Luna at a cliff -->
     </div>
-    <!-- Page 8 -->
-    <div class="page" id="page-8">
-        <p>The Starling saw a distant star, its glow mirrored in her feathers. The Willow nodded, its branches still, “You’ve always carried the light you seek. It was never out of reach.”</p>
-        <div class="artwork">
-            <!-- SVG: Starling flying toward a single star (#F5F6F5), her blue feathers glowing (#4682B4). Willow below, faint, in a starry night sky (#1C2526). -->
-        </div>
+    <div class="page" id="page8">
+        <p>The journey ended at a quiet lake, its surface a mirror of blue. Luna looked at her reflection, seeing not just doubt but a light that endured. “You’ve always carried it,” Shade said, his voice soft as the water’s edge. “Your light is yours, not the world’s to give or take.” Luna touched the water, ripples spreading. She was enough, not because of others, but because she was Luna.</p>
+        <div class="artwork"></div> <!-- Artwork: Luna at a lake -->
     </div>
-    <!-- Page 9 -->
-    <div class="page" id="page-9">
-        <p>The Starling soared, her wings wide, the sky no longer vast but hers. The Willow stood below, silent, its presence a quiet strength, watching her claim the stars.</p>
-        <div class="artwork">
-            <!-- SVG: Starling high in the sky, blue feathers vibrant (#4682B4). Willow small below, rooted, in a twilight sky with scattered stars (#1C2526). -->
-        </div>
-    </div>
-    <!-- Dedication -->
-    <div class="page" id="page-10">
-        <p>For Daria, whose light shines even in the quiet moments, a starling who will always find her sky.</p>
-        <div class="artwork">
-            <!-- SVG: Starling soaring above Willow, both small in a vast starry sky (#1C2526). Blue feathers (#4682B4) and Willow branches (#2F4F4F) glow faintly, serene. -->
-        </div>
+    <div class="page" id="page9">
+        <h1>For Daria, whose light shines even in the deepest blue.</h1>
+        <div class="artwork"></div> <!-- Dedication artwork -->
     </div>
 
     <script>
-        let currentPage = 0;
-        const pages = document.querySelectorAll('.page');
+        let currentPage = 1;
+        const totalPages = 9;
 
-        function showPage(index) {
-            pages[currentPage].classList.remove('active');
-            pages[currentPage].classList.add('hidden');
-            pages[index].classList.remove('hidden');
-            pages[index].classList.add('active');
-            currentPage = index;
+        function showPage(pageNum) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+                page.style.animation = '';
+            });
+            const page = document.getElementById(`page${pageNum}`);
+            page.classList.add('active');
+            page.style.animation = 'slideIn 1s ease-in-out';
         }
 
-        document.addEventListener('click', (e) => {
-            const half = window.innerWidth / 2;
-            if (e.clientX > half && currentPage < pages.length - 1) {
-                showPage(currentPage + 1);
-            } else if (e.clientX < half && currentPage > 0) {
-                showPage(currentPage - 1);
+        function nextPage() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                showPage(currentPage);
             }
-        });
+        }
 
-        // Ensure first page is visible
-        pages[0].classList.add('active');
-        pages[0].classList.remove('hidden');
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                showPage(currentPage);
+            }
+        }
+
+        showPage(currentPage);
     </script>
 </body>
 </html>
