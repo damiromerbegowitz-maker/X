@@ -1,182 +1,347 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Little Blue Fox & The Warm Fox</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Lantern and the Sparrow</title>
 <style>
-  body {
+  :root {
+    --bg: #0e0f12;
+    --fg: #e8e9ec;
+    --muted: #a9acb2;
+    --accent: #f4d06f; /* warm lantern glow */
+    --pale: #f6f1ea;   /* pale feather/skin accent */
+  }
+  html, body {
     margin: 0;
-    font-family: 'Helvetica Neue', sans-serif;
-    background: #f7f9fc;
-    color: #0a0a0a;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: 100%;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .frame {
+    display: grid;
+    place-items: center;
     height: 100vh;
-    user-select: none;
-    cursor: pointer;
+    overflow: hidden;
+  }
+  .book {
+    width: min(900px, 92vw);
+    height: min(620px, 70vh);
+    position: relative;
   }
   .page {
     position: absolute;
-    width: 80%;
-    max-width: 700px;
-    text-align: center;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(16px, 4vw, 48px);
+    padding: clamp(20px, 4vw, 48px);
+    border-radius: 24px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(255,255,255,0.06);
     opacity: 0;
-    transition: opacity 0.6s ease;
+    transform: translateX(40px);
+    transition: opacity 420ms ease, transform 420ms ease;
+    user-select: none;
   }
-  .page.active {
-    opacity: 1;
-  }
-  svg {
-    max-width: 300px;
-    margin: 20px auto;
-  }
-  .text {
-    font-size: 1.2em;
-    line-height: 1.6em;
-    margin-top: 20px;
-    color: #1b1b1b;
-  }
-  .cover-title {
-    font-size: 2em;
-    font-weight: bold;
-    color: #1d4ed8;
-  }
-  .dedication {
-    font-size: 1.3em;
-    font-style: italic;
-    color: #2563eb;
+  .page.active { opacity: 1; transform: translateX(0); }
+  .col { display: flex; flex-direction: column; justify-content: center; }
+  .title { font-size: clamp(28px, 5vw, 48px); letter-spacing: 0.4px; }
+  .subtitle { color: var(--muted); margin-top: 8px; font-size: clamp(14px, 2vw, 16px); }
+  .text { font-size: clamp(16px, 2.2vw, 20px); line-height: 1.55; }
+  .sig { color: var(--muted); font-size: 14px; margin-top: 8px; }
+  .artwrap { display: grid; place-items: center; }
+  svg { width: 100%; height: auto; max-height: 100%; }
+  .quiet { color: var(--muted); }
+  .credit { position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 12px; color: rgba(255,255,255,0.18); letter-spacing: 0.3px; }
+
+  /* Subtle focus ring for accessibility without visible UI */
+  :focus { outline: none; }
+  .frame:focus-visible { box-shadow: 0 0 0 2px rgba(244, 208, 111, 0.35) inset; border-radius: 12px; }
+
+  /* Reduce motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .page { transition: none; }
   }
 </style>
 </head>
 <body>
+<div class="frame" id="frame" tabindex="0" aria-label="storybook">
+  <div class="book" id="book">
 
-<!-- Page 1: Cover -->
-<div class="page active">
-  <svg viewBox="0 0 200 200">
-    <!-- Blue fox -->
-    <circle cx="70" cy="130" r="20" fill="#7dd3fc"/>
-    <polygon points="60,110 80,110 70,90" fill="#7dd3fc"/>
-    <!-- Warm fox -->
-    <circle cx="130" cy="140" r="25" fill="#fbbf24"/>
-    <polygon points="120,120 140,120 130,100" fill="#fbbf24"/>
-    <!-- Stars -->
-    <circle cx="50" cy="50" r="2" fill="#facc15"/>
-    <circle cx="150" cy="30" r="2" fill="#facc15"/>
-    <circle cx="120" cy="70" r="2" fill="#facc15"/>
-  </svg>
-  <div class="cover-title">Little Blue Fox & The Warm Fox</div>
+    <!-- 1. COVER -->
+    <section class="page active" data-page="1">
+      <div class="col">
+        <div class="title">The Lantern and the Sparrow</div>
+        <div class="subtitle">Nine small scenes</div>
+      </div>
+      <div class="artwrap">
+        <!-- Minimal cover art: lantern on a branch -->
+        <svg viewBox="0 0 700 500" role="img" aria-label="Lantern on a branch">
+          <defs>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+          <rect width="700" height="500" fill="none" />
+          <path d="M80 160 C200 120, 340 120, 560 160" stroke="#7b7f87" stroke-width="3" fill="none"/>
+          <path d="M420 160 L420 260" stroke="#7b7f87" stroke-width="2"/>
+          <g transform="translate(420,260)">
+            <rect x="-30" y="-40" width="60" height="80" rx="6" ry="6" fill="none" stroke="white" stroke-width="2"/>
+            <rect x="-18" y="-18" width="36" height="36" rx="5" ry="5" fill="var(--accent)" opacity="0.85" filter="url(#glow)"/>
+            <path d="M-20 -46 h40" stroke="#a9acb2" stroke-width="2"/>
+            <circle cx="0" cy="-46" r="4" fill="#a9acb2"/>
+          </g>
+          <circle cx="220" cy="140" r="10" fill="var(--pale)"/>
+          <path d="M220 140 q20 12 36 4 q-10 12 -32 6 z" fill="var(--pale)" opacity="0.5"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 2. Meeting -->
+    <section class="page" data-page="2">
+      <div class="col text">
+        <p><span class="quiet">Sparrow:</span> The fence looks taller today.</p>
+        <p><span class="quiet">Lantern&nbsp;Maker:</span> Fences do that when we’re tired. Here—stand on the post; I’ll steady it.</p>
+        <p><span class="quiet">Sparrow:</span> Your lantern is dim.</p>
+        <p><span class="quiet">Lantern&nbsp;Maker:</span> Enough to begin. We can brighten it together.</p>
+      </div>
+      <div class="artwrap">
+        <!-- Fence and sparrow -->
+        <svg viewBox="0 0 700 500" role="img" aria-label="Sparrow on fence with lantern maker nearby">
+          <rect width="700" height="500" fill="none" />
+          <g stroke="#7b7f87" stroke-width="3" fill="none">
+            <path d="M80 340 L620 340"/>
+            <path d="M120 340 L120 250 M220 340 L220 250 M320 340 L320 250 M420 340 L420 250 M520 340 L520 250"/>
+          </g>
+          <!-- Sparrow -->
+          <g transform="translate(220,250)">
+            <ellipse cx="0" cy="0" rx="24" ry="16" fill="var(--pale)" />
+            <circle cx="-18" cy="-6" r="8" fill="var(--pale)" />
+            <circle cx="-21" cy="-8" r="2.2" fill="#32343a" />
+            <path d="M24 0 q26 -6 38 0" stroke="#a9acb2" stroke-width="2" fill="none"/>
+          </g>
+          <!-- Lantern maker minimal silhouette -->
+          <g transform="translate(460,340)">
+            <path d="M0 0 v-60 a18 18 0 0 1 36 0 v60" fill="none" stroke="#d6d7db" stroke-width="3"/>
+            <path d="M18 -60 v-30" stroke="#d6d7db" stroke-width="2"/>
+            <g transform="translate(18,-90)">
+              <rect x="-12" y="-16" width="24" height="32" rx="5" stroke="#d6d7db" fill="none"/>
+              <rect x="-6" y="-8" width="12" height="16" rx="3" fill="var(--accent)" opacity="0.8"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 3. Wind chime -->
+    <section class="page" data-page="3">
+      <div class="col text">
+        <p><span class="quiet">Sparrow:</span> My wind chime went silent.</p>
+        <p><span class="quiet">Lantern&nbsp;Maker:</span> Not broken—knotted. Joy does this. Hold the string; I’ll unfasten what time tightened.</p>
+        <p><span class="quiet">Sparrow:</span> It sounds small.</p>
+        <p><span class="quiet">Lantern&nbsp;Maker:</span> Small is where music begins.</p>
+      </div>
+      <div class="artwrap">
+        <!-- Wind chime on a branch -->
+        <svg viewBox="0 0 700 500" role="img" aria-label="Wind chime hanging from a branch">
+          <rect width="700" height="500" fill="none" />
+          <path d="M100 120 C240 90, 420 100, 600 130" stroke="#7b7f87" stroke-width="3" fill="none"/>
+          <path d="M360 130 v 40" stroke="#a9acb2" stroke-width="2"/>
+          <g transform="translate(360,210)">
+            <rect x="-40" y="-12" width="80" height="24" rx="6" ry="6" fill="none" stroke="#d6d7db" />
+            <path d="M-28 12 v 46 M-4 12 v 54 M20 12 v 50" stroke="#d6d7db" stroke-width="3"/>
+            <circle cx="0" cy="80" r="8" fill="var(--pale)"/>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 4. Not enough -->
+    <section class="page" data-page="4">
+      <div class="col text">
+        <p><span class="quiet">Sparrow:</span> I am not enough.</p>
+        <p><span class="quiet">Lantern&nbsp;Maker:</span> Enough for what?</p>
+        <p><span class="quiet">Sparrow:</span> For the world.</p>
+        <p><span class="quiet">Lantern&nbsp;Maker:</span> The world is not a mouth to be filled. It’s a place to inhabit. A day asks only to be lived.</p>
+      </div>
+      <div class="artwrap">
+        <!-- Minimal sparrow reflection in water -->
+        <svg viewBox="0 0 700 500" role="img" aria-label="Sparrow by a quiet pool">
+          <rect width="700" height="500" fill="none" />
+          <ellipse cx="350" cy="330" rx="220" ry="60" fill="none" stroke="#7b7f87" stroke-width="2"/>
+          <g transform="translate(260,270)">
+            <ellipse cx="0" cy="0" rx="22" ry="15" fill="var(--pale)" />
+            <circle cx="-16" cy="-6" r="7" fill="var(--pale)" />
+            <circle cx="-18" cy="-7" r="2" fill="#32343a" />
+          </g>
+          <g transform="translate(260,390) scale(1,-1)" opacity="0.3">
+            <ellipse cx="0" cy="0" rx="22" ry="15" fill="var(--pale)" />
+            <circle cx="-16" cy="-6" r="7" fill="var(--pale)" />
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 5. Forest and river -->
+    <section class="page" data-page="5">
+      <div class="col text">
+        <p><span class="quiet">Lantern&nbsp;Maker:</span> The forest does not ask the river to be taller.</p>
+        <p>It welcomes its exact course—the bends, the stones, the hush over deep places.</p>
+        <p>Measure yourself by the work only you can do: the way you notice, the way you care, the way you return.</p>
+      </div>
+      <div class="artwrap">
+        <!-- River through trees -->
+        <svg viewBox="0 0 700 500" role="img" aria-label="River winding through a sparse forest">
+          <rect width="700" height="500" fill="none" />
+          <path d="M80 420 C220 380, 260 340, 340 320 C420 300, 520 300, 620 260" stroke="#a9acb2" stroke-width="4" fill="none"/>
+          <g stroke="#7b7f87" stroke-width="3">
+            <path d="M140 420 v-120"/>
+            <path d="M220 420 v-160"/>
+            <path d="M480 420 v-150"/>
+            <path d="M560 420 v-130"/>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 6. Dark part of the forest -->
+    <section class="page" data-page="6">
+      <div class="col text">
+        <p><span class="quiet">Sparrow:</span> How do I walk where I am afraid?</p>
+        <p><span class="quiet">Lantern&nbsp;Maker:</span> Keep a small promise to the next step. Fear travels faster than feet, but it tires sooner.</p>
+        <p>We go together, and the ground appears.</p>
+      </div>
+      <div class="artwrap">
+        <!-- Path with lantern glow -->
+        <svg viewBox="0 0 700 500" role="img" aria-label="Lantern lighting a path">
+          <defs>
+            <radialGradient id="rad" cx="50%" cy="60%" r="40%">
+              <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.85"/>
+              <stop offset="60%" stop-color="var(--accent)" stop-opacity="0.15"/>
+              <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect width="700" height="500" fill="none" />
+          <circle cx="300" cy="320" r="180" fill="url(#rad)"/>
+          <path d="M120 440 C220 400, 340 360, 560 340" stroke="#7b7f87" stroke-width="3" fill="none"/>
+          <g transform="translate(300,260)">
+            <rect x="-14" y="-20" width="28" height="40" rx="6" stroke="#d6d7db" fill="none"/>
+            <rect x="-8" y="-10" width="16" height="20" rx="3" fill="var(--accent)"/>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 7. Shadow of the path -->
+    <section class="page" data-page="7">
+      <div class="col text">
+        <p><span class="quiet">Lantern&nbsp;Maker:</span> Fear is the shadow of the path. It stretches where the light stands behind you.</p>
+        <p>We don’t fight the shadow. We align the light—step, breath, value—and walk.</p>
+      </div>
+      <div class="artwrap">
+        <!-- Bridge with long shadow -->
+        <svg viewBox="0 0 700 500" role="img" aria-label="Bridge casting a long shadow">
+          <rect width="700" height="500" fill="none" />
+          <path d="M120 300 L580 300" stroke="#d6d7db" stroke-width="4"/>
+          <path d="M160 300 q80 -80 160 0 q80 -80 160 0 q80 -80 120 0" stroke="#d6d7db" stroke-width="3" fill="none"/>
+          <path d="M140 304 L560 420" stroke="#7b7f87" stroke-width="10" opacity="0.35"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 8. Flight -->
+    <section class="page" data-page="8">
+      <div class="col text">
+        <p><span class="quiet">Sparrow:</span> I flew ahead, only to see if I could.</p>
+        <p><span class="quiet">Lantern&nbsp;Maker:</span> You didn’t need certainty. You needed a beginning.</p>
+        <p>Borrow light when you must. It’s yours while you carry it.</p>
+      </div>
+      <div class="artwrap">
+        <!-- Sparrow in flight -->
+        <svg viewBox="0 0 700 500" role="img" aria-label="Sparrow in flight">
+          <rect width="700" height="500" fill="none" />
+          <g transform="translate(220,200)">
+            <path d="M0 0 q60 -40 140 0" stroke="#d6d7db" stroke-width="3" fill="none"/>
+            <ellipse cx="70" cy="10" rx="26" ry="18" fill="var(--pale)" />
+            <circle cx="52" cy="2" r="7" fill="var(--pale)" />
+            <circle cx="50" cy="2" r="2" fill="#32343a" />
+          </g>
+          <path d="M120 360 C240 340, 380 360, 560 340" stroke="#7b7f87" stroke-width="2" fill="none" opacity="0.6"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 9. Dedication -->
+    <section class="page" data-page="9">
+      <div class="col">
+        <div class="title">For Daria</div>
+        <div class="text" style="margin-top:16px; max-width: 46ch;">
+          May you remember: the sky does not measure the worth of a wing—it simply makes room.
+          Walk gently where you doubt, and let small lights add up.
+        </div>
+      </div>
+      <div class="artwrap">
+        <!-- Open sky with small lights -->
+        <svg viewBox="0 0 700 500" role="img" aria-label="Open sky with small lights">
+          <rect width="700" height="500" fill="none" />
+          <g>
+            <circle cx="160" cy="120" r="2" fill="var(--accent)"/>
+            <circle cx="240" cy="80" r="2" fill="var(--accent)"/>
+            <circle cx="320" cy="140" r="2" fill="var(--accent)"/>
+            <circle cx="420" cy="100" r="2" fill="var(--accent)"/>
+            <circle cx="520" cy="150" r="2" fill="var(--accent)"/>
+          </g>
+          <path d="M100 380 C240 340, 460 360, 600 330" stroke="#7b7f87" stroke-width="3" fill="none"/>
+        </svg>
+      </div>
+    </section>
+
+  </div>
 </div>
-
-<!-- Page 2 -->
-<div class="page">
-  <svg viewBox="0 0 200 200">
-    <!-- Two foxes sitting under a tree -->
-    <circle cx="60" cy="140" r="15" fill="#7dd3fc"/>
-    <circle cx="140" cy="150" r="20" fill="#fbbf24"/>
-    <rect x="90" y="80" width="20" height="80" fill="#6b7280"/>
-    <polygon points="100,60 90,80 110,80" fill="#6b7280"/>
-  </svg>
-  <div class="text">They sat quietly, noticing how the wind bent the branches, and how small joys can be shared without words.</div>
-</div>
-
-<!-- Page 3 -->
-<div class="page">
-  <svg viewBox="0 0 200 200">
-    <!-- Storm -->
-    <line x1="50" y1="50" x2="150" y2="150" stroke="#60a5fa" stroke-width="2"/>
-    <circle cx="60" cy="140" r="15" fill="#7dd3fc"/>
-    <circle cx="140" cy="150" r="20" fill="#fbbf24"/>
-  </svg>
-  <div class="text">The storm came suddenly, and the little blue fox felt fragile. The warm fox simply stayed close, steady as the earth.</div>
-</div>
-
-<!-- Page 4 -->
-<div class="page">
-  <svg viewBox="0 0 200 200">
-    <!-- Reflection pool -->
-    <circle cx="100" cy="100" r="50" fill="#bfdbfe"/>
-    <circle cx="70" cy="130" r="15" fill="#7dd3fc"/>
-    <circle cx="130" cy="140" r="20" fill="#fbbf24"/>
-  </svg>
-  <div class="text">They looked into the quiet pool and saw themselves reflected—not perfect, not everything understood, yet present, real, and enough.</div>
-</div>
-
-<!-- Page 5 -->
-<div class="page">
-  <svg viewBox="0 0 200 200">
-    <!-- Sharing berries -->
-    <circle cx="60" cy="140" r="15" fill="#7dd3fc"/>
-    <circle cx="140" cy="150" r="20" fill="#fbbf24"/>
-    <circle cx="100" cy="120" r="5" fill="#f87171"/>
-  </svg>
-  <div class="text">A small gift shared—a berry, a glance, a laugh—proved that happiness often lives in tiny, unnoticed moments.</div>
-</div>
-
-<!-- Page 6 -->
-<div class="page">
-  <svg viewBox="0 0 200 200">
-    <!-- Inner storm -->
-    <circle cx="60" cy="140" r="15" fill="#7dd3fc"/>
-    <circle cx="140" cy="150" r="20" fill="#fbbf24"/>
-    <path d="M50 50 Q100 0 150 50" stroke="#60a5fa" stroke-width="2" fill="none"/>
-  </svg>
-  <div class="text">Sometimes the world whispers that one is unworthy. The warm fox reminds silently: presence alone matters, even when words fail.</div>
-</div>
-
-<!-- Page 7 -->
-<div class="page">
-  <svg viewBox="0 0 200 200">
-    <!-- Evening sky -->
-    <circle cx="100" cy="100" r="50" fill="#bfdbfe"/>
-    <circle cx="60" cy="140" r="15" fill="#7dd3fc"/>
-    <circle cx="140" cy="150" r="20" fill="#fbbf24"/>
-    <circle cx="150" cy="50" r="3" fill="#facc15"/>
-    <circle cx="40" cy="40" r="2" fill="#facc15"/>
-  </svg>
-  <div class="text">Under the evening sky, peace arrived quietly. The world was vast, yet they were here, together, enough for this moment.</div>
-</div>
-
-<!-- Page 8 -->
-<div class="page">
-  <svg viewBox="0 0 200 200">
-    <!-- Horizon -->
-    <rect x="0" y="100" width="200" height="100" fill="#bfdbfe"/>
-    <circle cx="60" cy="140" r="15" fill="#7dd3fc"/>
-    <circle cx="140" cy="150" r="20" fill="#fbbf24"/>
-    <circle cx="100" cy="50" r="10" fill="#facc15"/>
-  </svg>
-  <div class="text">They understood: self-worth is a journey, not a race. Each day matters, each breath is enough, each presence counts.</div>
-</div>
-
-<!-- Page 9: Dedication -->
-<div class="page">
-  <svg viewBox="0 0 200 200">
-    <!-- Heart / Symbolic bond -->
-    <path d="M50 100 Q100 20 150 100 Q100 180 50 100 Z" fill="#7dd3fc" stroke="#fbbf24" stroke-width="3"/>
-  </svg>
-  <div class="dedication">For Daria — even if the paths we walk diverge, your light will always leave a mark here.</div>
-</div>
-
+<div class="credit" aria-hidden="true">Click or use arrow keys</div>
 <script>
-  const pages = document.querySelectorAll('.page');
-  let current = 0;
+(function(){
+  const pages = Array.from(document.querySelectorAll('.page'));
+  let index = 0;
 
-  document.body.addEventListener('click', () => {
-    pages[current].classList.remove('active');
-    current = (current + 1) % pages.length;
-    pages[current].classList.add('active');
-  });
+  function show(i) {
+    index = (i + pages.length) % pages.length;
+    pages.forEach((p, k) => p.classList.toggle('active', k === index));
+  }
+  function next(){ show(index + 1); }
+  function prev(){ show(index - 1); }
 
-  document.body.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-    pages[current].classList.remove('active');
-    current = (current - 1 + pages.length) % pages.length;
-    pages[current].classList.add('active');
+  const frame = document.getElementById('frame');
+  frame.addEventListener('click', (e) => {
+    // Avoid navigating when selecting text
+    const sel = window.getSelection && window.getSelection().toString();
+    if (!sel) next();
   });
+  frame.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft'  || e.key === 'Backspace') { e.preventDefault(); prev(); }
+    if (e.key.toLowerCase() === 'h') { e.preventDefault(); prev(); }
+    if (e.key.toLowerCase() === 'l') { e.preventDefault(); next(); }
+  });
+  // Basic touch support
+  let startX = null;
+  frame.addEventListener('touchstart', (e) => { startX = e.changedTouches[0].clientX; }, {passive:true});
+  frame.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); } else { next(); }
+  }, {passive:true});
+
+  // Ensure initial focus for keyboard navigation without visible UI
+  window.addEventListener('load', () => frame.focus({preventScroll:true}));
+})();
 </script>
-
 </body>
 </html>
